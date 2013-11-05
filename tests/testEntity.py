@@ -31,10 +31,10 @@ import unittest
 from utils.prettyxml import prettyxml
 
 from utils.xmldiff import diff
-from schema.entity_api import ClassDescription, EntityDescription_, Designation, DesignationRole
+from schema.entity_api import ClassDescription, EntityDescription_
 from schema.core_api import ScopedEntityName, CodeSystemVersionReference, URIAndEntityName, NameAndMeaningReference, \
                             CodeSystemReference
-from model.OpaqueData import OpaqueData
+from model.Designation import Designation
 
 class testEntity(unittest.TestCase):
     def test1(self):
@@ -48,12 +48,7 @@ class testEntity(unittest.TestCase):
         e.describingCodeSystemVersion.version.uri="http://snomed.info/sct/900000000000207008/version/20130731"
         e.describingCodeSystemVersion.codeSystem = CodeSystemReference('SNOMED_CT')
         e.describingCodeSystemVersion.codeSystem.uri="http://snomed.info/sct/900000000000207008"
-        desig = Designation(OpaqueData('Appendicitis (Finding)').value_)
-
-        desig.designationRole = DesignationRole.PREFERRED
-        #
-        #desig.assertedInCodeSystemVersion = e.describingCodeSystemVersion
-        e.designation.append(desig)
+        e.designation.append(Designation('Appendicitis (Finding)'))
 
         et = URIAndEntityName()
         et.uri = 'http://www.w3.org/2002/07/owl#Class'
