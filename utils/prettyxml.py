@@ -58,6 +58,8 @@ defaultNS = core_api.Namespace
 def prettyxml(pyxb_xml, validate=True, ns=None, xslt=None):
     """ XML pretty printer.  Surprising as it may seem, there doesn't seem to be a really decent
         Python based pretty printer for XML, so we rolled this one ourselves.
+        Note: Sometimes setting RequireValidWhenGenerating to false results in errors.
+
         @param pyxb_xml: XML to be prettified
         @type pyxb_xml: either a string containing xml or a pyxb node
         @param validate: Indicator on whether the XML should be validated.  Only applies if the input is of type pyxb node

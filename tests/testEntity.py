@@ -26,13 +26,15 @@
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
-import pyxb
+
 import unittest
+from utils.prettyxml import prettyxml
 
 from utils.xmldiff import diff
-from schema.entity_api import ClassDescription, EntityDescription_
+from schema.entity_api import ClassDescription, EntityDescription_, Designation, DesignationRole
 from schema.core_api import ScopedEntityName, CodeSystemVersionReference, URIAndEntityName, NameAndMeaningReference, \
                             CodeSystemReference
+from model.OpaqueData import OpaqueData
 
 class testEntity(unittest.TestCase):
     def test1(self):
@@ -46,6 +48,12 @@ class testEntity(unittest.TestCase):
         e.describingCodeSystemVersion.version.uri="http://snomed.info/sct/900000000000207008/version/20130731"
         e.describingCodeSystemVersion.codeSystem = CodeSystemReference('SNOMED_CT')
         e.describingCodeSystemVersion.codeSystem.uri="http://snomed.info/sct/900000000000207008"
+        desig = Designation(OpaqueData('Appendicitis (Finding)').value_)
+
+        desig.designationRole = DesignationRole.PREFERRED
+        #
+        #desig.assertedInCodeSystemVersion = e.describingCodeSystemVersion
+        e.designation.append(desig)
 
         et = URIAndEntityName()
         et.uri = 'http://www.w3.org/2002/07/owl#Class'
@@ -54,6 +62,7 @@ class testEntity(unittest.TestCase):
         e.entityType.append(et)
         c = EntityDescription_()
         c.classDescription = e
+
         self.assertTrue(diff(c.toxml(),"""<?xml version="1.0" encoding="UTF-8"?>
 <entity:EntityDescription xmlns:entity="http://www.omg.org/spec/CTS2/1.1/Entity" xmlns:core="http://www.omg.org/spec/CTS2/1.1/Core">
     <entity:classDescription about="http://snomed.info/id/74400008">
@@ -65,6 +74,9 @@ class testEntity(unittest.TestCase):
             <core:version uri="http://snomed.info/sct/900000000000207008/version/20130731">SNOMED_CT_20130731</core:version>
             <core:codeSystem uri="http://snomed.info/sct/900000000000207008">SNOMED_CT</core:codeSystem>
         </entity:describingCodeSystemVersion>
+        <entity:designation designationRole="PREFERRED">
+            <value>Appendicitis (Finding)</value>
+        </entity:designation>
         <entity:entityType uri="http://www.w3.org/2002/07/owl#Class">
             <core:name>Class</core:name>
         </entity:entityType>
