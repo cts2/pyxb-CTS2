@@ -31,7 +31,7 @@ import unittest
 from utils.prettyxml import prettyxml
 
 from utils.xmldiff import diff
-from schema.entity_api import ClassDescription, EntityDescription_
+from schema.entity_api import ClassDescription, EntityDescription
 from schema.core_api import ScopedEntityName, CodeSystemVersionReference, URIAndEntityName, NameAndMeaningReference, \
                             CodeSystemReference
 from model.Designation import Designation
@@ -48,14 +48,14 @@ class testEntity(unittest.TestCase):
         e.describingCodeSystemVersion.version.uri="http://snomed.info/sct/900000000000207008/version/20130731"
         e.describingCodeSystemVersion.codeSystem = CodeSystemReference('SNOMED_CT')
         e.describingCodeSystemVersion.codeSystem.uri="http://snomed.info/sct/900000000000207008"
-        e.designation.append(Designation('Appendicitis (Finding)'))
+        e.designation.append(Designation('Appendicitis &< (Finding)'))
 
         et = URIAndEntityName()
         et.uri = 'http://www.w3.org/2002/07/owl#Class'
         et.nameSpace = 'owl'
         et.name = 'Class'
         e.entityType.append(et)
-        c = EntityDescription_()
+        c = EntityDescription()
         c.classDescription = e
 
         self.assertTrue(diff(c.toxml(),"""<?xml version="1.0" encoding="UTF-8"?>
@@ -70,7 +70,7 @@ class testEntity(unittest.TestCase):
             <core:codeSystem uri="http://snomed.info/sct/900000000000207008">SNOMED_CT</core:codeSystem>
         </entity:describingCodeSystemVersion>
         <entity:designation designationRole="PREFERRED">
-            <value>Appendicitis (Finding)</value>
+            <value>Appendicitis &amp;&lt; (Finding)</value>
         </entity:designation>
         <entity:entityType uri="http://www.w3.org/2002/07/owl#Class">
             <core:name>Class</core:name>

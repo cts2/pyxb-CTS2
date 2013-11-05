@@ -126,4 +126,12 @@ def prettyxml(pyxb_xml, validate=True, ns=None, xslt=None):
             prev = e[0]
     return rval 
 
-       
+
+def cleanxml(txt):
+    if txt:
+        return uncleanxml(txt).replace('&','&amp;').replace('<', '&lt;')
+    return None
+
+def uncleanxml(txt):
+    if txt:
+        return txt.replace('&amp;','&').replace('&lt;', '<')

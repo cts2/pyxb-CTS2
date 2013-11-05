@@ -1,22 +1,22 @@
 # ./core_service_api.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:766b87429f1e7a189b9fb1b81a7fcaeef51dc3cf
-# Generated 2013-04-18 16:41:20.526740 by PyXB version 1.2.2
+# Generated 2013-11-05 15:25:28.323155 by PyXB version 1.2.3
 # Namespace http://www.omg.org/spec/CTS2/1.1/CoreService [xmlns:coreservice]
 
 import pyxb
 import pyxb.binding
 import pyxb.binding.saxer
-import StringIO
+import io
 import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:b2e57fe8-a870-11e2-a91a-c82a1438c957')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c74202c2-4660-11e3-9c81-c82a1438c957')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.2'
+_PyXBVersion = '1.2.3'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
@@ -32,8 +32,12 @@ Namespace.configureCategories(['typeBinding', 'elementBinding'])
 def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
     """Parse the given XML and use the document element to create a
     Python instance.
-    
-    @kw default_namespace The L{pyxb.Namespace} instance to use as the
+
+    @param xml_text An XML document.  This should be data (Python 2
+    str or Python 3 bytes), or a text (Python 2 unicode or Python 3
+    str) in the L{pyxb._InputEncoding} encoding.
+
+    @keyword default_namespace The L{pyxb.Namespace} instance to use as the
     default namespace where there is no default namespace in scope.
     If unspecified or C{None}, the namespace of the module containing
     this function will be used.
@@ -51,7 +55,10 @@ def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
         default_namespace = Namespace.fallbackNamespace()
     saxer = pyxb.binding.saxer.make_parser(fallback_namespace=default_namespace, location_base=location_base)
     handler = saxer.getContentHandler()
-    saxer.parse(StringIO.StringIO(xml_text))
+    xmld = xml_text
+    if isinstance(xmld, unicode):
+        xmld = xmld.encode(pyxb._InputEncoding)
+    saxer.parse(io.BytesIO(xmld))
     instance = handler.rootObject()
     return instance
 
@@ -230,7 +237,7 @@ class RestrictionType (_ImportedBinding__nsgroup.Enumeration, pyxb.binding.basis
     """A parameter used in queries where multiple elements are provided. It determines whether a candidate element must satisfy all restrictions or just one or more restriction in order to be considered as satisfying the restriction composite"""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'RestrictionType')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 896, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 880, 1)
     _Documentation = u'A parameter used in queries where multiple elements are provided. It determines whether a candidate element must satisfy all restrictions or just one or more restriction in order to be considered as satisfying the restriction composite'
 RestrictionType._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=RestrictionType, enum_prefix=None)
 RestrictionType.ALL = RestrictionType._CF_enumeration.addEnumeration(unicode_value=u'ALL', tag=u'ALL')
@@ -244,7 +251,7 @@ class ActiveOrAll (_ImportedBinding__nsgroup.Enumeration, pyxb.binding.basis.enu
     """An indicator that determines whether the given service access request applies only to elements that are currently marked as  in the context of the particular query or to both  and  entries."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'ActiveOrAll')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 945, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 929, 1)
     _Documentation = u'An indicator that determines whether the given service access request applies only to elements that are currently marked as  in the context of the particular query or to both  and  entries.'
 ActiveOrAll._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=ActiveOrAll, enum_prefix=None)
 ActiveOrAll.ACTIVE_ONLY = ActiveOrAll._CF_enumeration.addEnumeration(unicode_value=u'ACTIVE_ONLY', tag=u'ACTIVE_ONLY')
@@ -258,7 +265,7 @@ class SortDirection (_ImportedBinding__nsgroup.Enumeration, pyxb.binding.basis.e
     """The collating order of a sort."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'SortDirection')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1023, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1007, 1)
     _Documentation = u'The collating order of a sort.'
 SortDirection._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=SortDirection, enum_prefix=None)
 SortDirection.ASCENDING = SortDirection._CF_enumeration.addEnumeration(unicode_value=u'ASCENDING', tag=u'ASCENDING')
@@ -997,13 +1004,13 @@ class NameOrURIList_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'NameOrURIList')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 887, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 871, 1)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}entry uses Python identifier entry
-    __entry = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'entry'), 'entry', '__httpwww_omg_orgspecCTS21_1CoreService_NameOrURIList__httpwww_omg_orgspecCTS21_1CoreServiceentry', True, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 892, 3), )
+    __entry = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'entry'), 'entry', '__httpwww_omg_orgspecCTS21_1CoreService_NameOrURIList__httpwww_omg_orgspecCTS21_1CoreServiceentry', True, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 876, 3), )
 
     
     entry = property(__entry.value, __entry.set, None, None)
@@ -1024,34 +1031,34 @@ class QueryControl_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'QueryControl')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 916, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 900, 1)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}maxToReturn uses Python identifier maxToReturn
-    __maxToReturn = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'maxToReturn'), 'maxToReturn', '__httpwww_omg_orgspecCTS21_1CoreService_QueryControl__httpwww_omg_orgspecCTS21_1CoreServicemaxToReturn', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 921, 3), )
+    __maxToReturn = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'maxToReturn'), 'maxToReturn', '__httpwww_omg_orgspecCTS21_1CoreService_QueryControl__httpwww_omg_orgspecCTS21_1CoreServicemaxToReturn', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 905, 3), )
 
     
     maxToReturn = property(__maxToReturn.value, __maxToReturn.set, None, u'The maximum number of  that may be present in a return . Note that a service may choose to return less than  entries - this is simply an upper limit. If  is not supplied, the service may use whatever return block size it determines to be most appropriate.')
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}timeLimit uses Python identifier timeLimit
-    __timeLimit = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'timeLimit'), 'timeLimit', '__httpwww_omg_orgspecCTS21_1CoreService_QueryControl__httpwww_omg_orgspecCTS21_1CoreServicetimeLimit', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 926, 3), )
+    __timeLimit = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'timeLimit'), 'timeLimit', '__httpwww_omg_orgspecCTS21_1CoreService_QueryControl__httpwww_omg_orgspecCTS21_1CoreServicetimeLimit', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 910, 3), )
 
     
     timeLimit = property(__timeLimit.value, __timeLimit.set, None, u'The maximum amount of time that may be taken to process a query before a time out exception occurs. If not present, the service determines the maximum query time out.')
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}format uses Python identifier format
-    __format = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'format'), 'format', '__httpwww_omg_orgspecCTS21_1CoreService_QueryControl__httpwww_omg_orgspecCTS21_1CoreServiceformat', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 931, 3), )
+    __format = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'format'), 'format', '__httpwww_omg_orgspecCTS21_1CoreService_QueryControl__httpwww_omg_orgspecCTS21_1CoreServiceformat', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 915, 3), )
 
     
     format = property(__format.value, __format.set, None, u'The local identifier or URI of the return format for query results.')
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}sortCriteria uses Python identifier sortCriteria
-    __sortCriteria = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'sortCriteria'), 'sortCriteria', '__httpwww_omg_orgspecCTS21_1CoreService_QueryControl__httpwww_omg_orgspecCTS21_1CoreServicesortCriteria', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 936, 3), )
+    __sortCriteria = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'sortCriteria'), 'sortCriteria', '__httpwww_omg_orgspecCTS21_1CoreService_QueryControl__httpwww_omg_orgspecCTS21_1CoreServicesortCriteria', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 920, 3), )
 
     
     sortCriteria = property(__sortCriteria.value, __sortCriteria.set, None, u'The local identifier or URI of the sort criteria for query results.')
@@ -1075,34 +1082,34 @@ class ReadContext_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'ReadContext')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 965, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 949, 1)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}active uses Python identifier active
-    __active = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'active'), 'active', '__httpwww_omg_orgspecCTS21_1CoreService_ReadContext__httpwww_omg_orgspecCTS21_1CoreServiceactive', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 970, 3), )
+    __active = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'active'), 'active', '__httpwww_omg_orgspecCTS21_1CoreService_ReadContext__httpwww_omg_orgspecCTS21_1CoreServiceactive', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 954, 3), )
 
     
     active = property(__active.value, __active.set, None, u'Determines whether the query only applies to only active or all entries. ')
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}referenceLanguage uses Python identifier referenceLanguage
-    __referenceLanguage = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'referenceLanguage'), 'referenceLanguage', '__httpwww_omg_orgspecCTS21_1CoreService_ReadContext__httpwww_omg_orgspecCTS21_1CoreServicereferenceLanguage', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 975, 3), )
+    __referenceLanguage = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'referenceLanguage'), 'referenceLanguage', '__httpwww_omg_orgspecCTS21_1CoreService_ReadContext__httpwww_omg_orgspecCTS21_1CoreServicereferenceLanguage', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 959, 3), )
 
     
     referenceLanguage = property(__referenceLanguage.value, __referenceLanguage.set, None, u'The spoken or written language that should be used for the results of the inquiry, where appropriate.')
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}changeSetContext uses Python identifier changeSetContext
-    __changeSetContext = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'changeSetContext'), 'changeSetContext', '__httpwww_omg_orgspecCTS21_1CoreService_ReadContext__httpwww_omg_orgspecCTS21_1CoreServicechangeSetContext', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 980, 3), )
+    __changeSetContext = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'changeSetContext'), 'changeSetContext', '__httpwww_omg_orgspecCTS21_1CoreService_ReadContext__httpwww_omg_orgspecCTS21_1CoreServicechangeSetContext', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 964, 3), )
 
     
     changeSetContext = property(__changeSetContext.value, __changeSetContext.set, None, u'The URI of an open change set whose contents should be included in the results of the access request.  is only applicable in services that support the  profile')
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}referenceTime uses Python identifier referenceTime
-    __referenceTime = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'referenceTime'), 'referenceTime', '__httpwww_omg_orgspecCTS21_1CoreService_ReadContext__httpwww_omg_orgspecCTS21_1CoreServicereferenceTime', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 985, 3), )
+    __referenceTime = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'referenceTime'), 'referenceTime', '__httpwww_omg_orgspecCTS21_1CoreService_ReadContext__httpwww_omg_orgspecCTS21_1CoreServicereferenceTime', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 969, 3), )
 
     
     referenceTime = property(__referenceTime.value, __referenceTime.set, None, u'The contextual date and time of the query.  is may only be present in services that support the  profile.')
@@ -1126,13 +1133,13 @@ class SortCriteria_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'SortCriteria')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 995, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 979, 1)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}entry uses Python identifier entry
-    __entry = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'entry'), 'entry', '__httpwww_omg_orgspecCTS21_1CoreService_SortCriteria__httpwww_omg_orgspecCTS21_1CoreServiceentry', True, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1000, 3), )
+    __entry = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'entry'), 'entry', '__httpwww_omg_orgspecCTS21_1CoreService_SortCriteria__httpwww_omg_orgspecCTS21_1CoreServiceentry', True, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 984, 3), )
 
     
     entry = property(__entry.value, __entry.set, None, None)
@@ -1153,20 +1160,20 @@ class SortCriterion_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'SortCriterion')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1005, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 989, 1)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}sortDirection uses Python identifier sortDirection
-    __sortDirection = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'sortDirection'), 'sortDirection', '__httpwww_omg_orgspecCTS21_1CoreService_SortCriterion__httpwww_omg_orgspecCTS21_1CoreServicesortDirection', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1010, 3), )
+    __sortDirection = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'sortDirection'), 'sortDirection', '__httpwww_omg_orgspecCTS21_1CoreService_SortCriterion__httpwww_omg_orgspecCTS21_1CoreServicesortDirection', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 994, 3), )
 
     
     sortDirection = property(__sortDirection.value, __sortDirection.set, None, u'The sort order to be applied to the element.')
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}sortElement uses Python identifier sortElement
-    __sortElement = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'sortElement'), 'sortElement', '__httpwww_omg_orgspecCTS21_1CoreService_SortCriterion__httpwww_omg_orgspecCTS21_1CoreServicesortElement', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1015, 3), )
+    __sortElement = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'sortElement'), 'sortElement', '__httpwww_omg_orgspecCTS21_1CoreService_SortCriterion__httpwww_omg_orgspecCTS21_1CoreServicesortElement', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 999, 3), )
 
     
     sortElement = property(__sortElement.value, __sortElement.set, None, u'The type and name of the attribute, property or special element to be sorted')
@@ -1188,7 +1195,7 @@ class VersionResolutionService_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_EMPTY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'VersionResolutionService')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1051, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1035, 1)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
@@ -1208,13 +1215,13 @@ class URIList (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'URIList')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1057, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1041, 1)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}member uses Python identifier member
-    __member = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'member'), 'member', '__httpwww_omg_orgspecCTS21_1CoreService_URIList_httpwww_omg_orgspecCTS21_1CoreServicemember', True, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1059, 3), )
+    __member = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'member'), 'member', '__httpwww_omg_orgspecCTS21_1CoreService_URIList_httpwww_omg_orgspecCTS21_1CoreServicemember', True, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1043, 3), )
 
     
     member = property(__member.value, __member.set, None, None)
@@ -1235,41 +1242,41 @@ class UpdateChangeableMetadataRequest_ (pyxb.binding.basis.complexTypeDefinition
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'UpdateChangeableMetadataRequest')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1064, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1048, 1)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}updatedStatus uses Python identifier updatedStatus
-    __updatedStatus = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedStatus'), 'updatedStatus', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeableMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedStatus', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1066, 3), )
+    __updatedStatus = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedStatus'), 'updatedStatus', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeableMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedStatus', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1050, 3), )
 
     
     updatedStatus = property(__updatedStatus.value, __updatedStatus.set, None, None)
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}updatedEntryState uses Python identifier updatedEntryState
-    __updatedEntryState = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedEntryState'), 'updatedEntryState', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeableMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedEntryState', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1073, 3), )
+    __updatedEntryState = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedEntryState'), 'updatedEntryState', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeableMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedEntryState', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1057, 3), )
 
     
     updatedEntryState = property(__updatedEntryState.value, __updatedEntryState.set, None, None)
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}updatedEffectiveDate uses Python identifier updatedEffectiveDate
-    __updatedEffectiveDate = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedEffectiveDate'), 'updatedEffectiveDate', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeableMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedEffectiveDate', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1080, 3), )
+    __updatedEffectiveDate = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedEffectiveDate'), 'updatedEffectiveDate', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeableMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedEffectiveDate', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1064, 3), )
 
     
     updatedEffectiveDate = property(__updatedEffectiveDate.value, __updatedEffectiveDate.set, None, None)
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}updatedChangeNotes uses Python identifier updatedChangeNotes
-    __updatedChangeNotes = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeNotes'), 'updatedChangeNotes', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeableMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedChangeNotes', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1087, 3), )
+    __updatedChangeNotes = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeNotes'), 'updatedChangeNotes', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeableMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedChangeNotes', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1071, 3), )
 
     
     updatedChangeNotes = property(__updatedChangeNotes.value, __updatedChangeNotes.set, None, None)
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}updatedChangeSource uses Python identifier updatedChangeSource
-    __updatedChangeSource = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeSource'), 'updatedChangeSource', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeableMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedChangeSource', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1094, 3), )
+    __updatedChangeSource = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeSource'), 'updatedChangeSource', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeableMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedChangeSource', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1078, 3), )
 
     
     updatedChangeSource = property(__updatedChangeSource.value, __updatedChangeSource.set, None, None)
@@ -1294,13 +1301,13 @@ class CTD_ANON_12 (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1067, 4)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1051, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}status uses Python identifier status
-    __status = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'status'), 'status', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_12_httpwww_omg_orgspecCTS21_1CoreServicestatus', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1069, 6), )
+    __status = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'status'), 'status', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_12_httpwww_omg_orgspecCTS21_1CoreServicestatus', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1053, 6), )
 
     
     status = property(__status.value, __status.set, None, None)
@@ -1321,13 +1328,13 @@ class CTD_ANON_13 (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1074, 4)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1058, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}entryState uses Python identifier entryState
-    __entryState = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'entryState'), 'entryState', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_13_httpwww_omg_orgspecCTS21_1CoreServiceentryState', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1076, 6), )
+    __entryState = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'entryState'), 'entryState', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_13_httpwww_omg_orgspecCTS21_1CoreServiceentryState', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1060, 6), )
 
     
     entryState = property(__entryState.value, __entryState.set, None, None)
@@ -1348,13 +1355,13 @@ class CTD_ANON_14 (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1081, 4)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1065, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}effectiveDate uses Python identifier effectiveDate
-    __effectiveDate = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'effectiveDate'), 'effectiveDate', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_14_httpwww_omg_orgspecCTS21_1CoreServiceeffectiveDate', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1083, 6), )
+    __effectiveDate = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'effectiveDate'), 'effectiveDate', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_14_httpwww_omg_orgspecCTS21_1CoreServiceeffectiveDate', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1067, 6), )
 
     
     effectiveDate = property(__effectiveDate.value, __effectiveDate.set, None, None)
@@ -1375,13 +1382,13 @@ class CTD_ANON_15 (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1088, 4)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1072, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}changeNotes uses Python identifier changeNotes
-    __changeNotes = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'changeNotes'), 'changeNotes', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_15_httpwww_omg_orgspecCTS21_1CoreServicechangeNotes', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1090, 6), )
+    __changeNotes = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'changeNotes'), 'changeNotes', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_15_httpwww_omg_orgspecCTS21_1CoreServicechangeNotes', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1074, 6), )
 
     
     changeNotes = property(__changeNotes.value, __changeNotes.set, None, None)
@@ -1402,13 +1409,13 @@ class CTD_ANON_16 (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1095, 4)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1079, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}changeSource uses Python identifier changeSource
-    __changeSource = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'changeSource'), 'changeSource', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_16_httpwww_omg_orgspecCTS21_1CoreServicechangeSource', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1097, 6), )
+    __changeSource = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'changeSource'), 'changeSource', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_16_httpwww_omg_orgspecCTS21_1CoreServicechangeSource', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1081, 6), )
 
     
     changeSource = property(__changeSource.value, __changeSource.set, None, None)
@@ -1429,34 +1436,34 @@ class UpdateChangeSetMetadataRequest_ (pyxb.binding.basis.complexTypeDefinition)
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'UpdateChangeSetMetadataRequest')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1105, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1089, 1)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}updatedState uses Python identifier updatedState
-    __updatedState = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedState'), 'updatedState', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeSetMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedState', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1107, 3), )
+    __updatedState = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedState'), 'updatedState', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeSetMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedState', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1091, 3), )
 
     
     updatedState = property(__updatedState.value, __updatedState.set, None, None)
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}updatedCreator uses Python identifier updatedCreator
-    __updatedCreator = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedCreator'), 'updatedCreator', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeSetMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedCreator', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1114, 3), )
+    __updatedCreator = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedCreator'), 'updatedCreator', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeSetMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedCreator', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1098, 3), )
 
     
     updatedCreator = property(__updatedCreator.value, __updatedCreator.set, None, None)
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}updatedChangeInstructions uses Python identifier updatedChangeInstructions
-    __updatedChangeInstructions = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeInstructions'), 'updatedChangeInstructions', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeSetMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedChangeInstructions', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1121, 3), )
+    __updatedChangeInstructions = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeInstructions'), 'updatedChangeInstructions', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeSetMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedChangeInstructions', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1105, 3), )
 
     
     updatedChangeInstructions = property(__updatedChangeInstructions.value, __updatedChangeInstructions.set, None, None)
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}updatedOfficialEffectiveDate uses Python identifier updatedOfficialEffectiveDate
-    __updatedOfficialEffectiveDate = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedOfficialEffectiveDate'), 'updatedOfficialEffectiveDate', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeSetMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedOfficialEffectiveDate', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1128, 3), )
+    __updatedOfficialEffectiveDate = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedOfficialEffectiveDate'), 'updatedOfficialEffectiveDate', '__httpwww_omg_orgspecCTS21_1CoreService_UpdateChangeSetMetadataRequest__httpwww_omg_orgspecCTS21_1CoreServiceupdatedOfficialEffectiveDate', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1112, 3), )
 
     
     updatedOfficialEffectiveDate = property(__updatedOfficialEffectiveDate.value, __updatedOfficialEffectiveDate.set, None, None)
@@ -1480,13 +1487,13 @@ class CTD_ANON_17 (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1108, 4)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1092, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}state uses Python identifier state
-    __state = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'state'), 'state', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_17_httpwww_omg_orgspecCTS21_1CoreServicestate', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1110, 6), )
+    __state = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'state'), 'state', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_17_httpwww_omg_orgspecCTS21_1CoreServicestate', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1094, 6), )
 
     
     state = property(__state.value, __state.set, None, None)
@@ -1507,13 +1514,13 @@ class CTD_ANON_18 (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1115, 4)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1099, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}creator uses Python identifier creator
-    __creator = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'creator'), 'creator', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_18_httpwww_omg_orgspecCTS21_1CoreServicecreator', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1117, 6), )
+    __creator = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'creator'), 'creator', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_18_httpwww_omg_orgspecCTS21_1CoreServicecreator', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1101, 6), )
 
     
     creator = property(__creator.value, __creator.set, None, None)
@@ -1534,13 +1541,13 @@ class CTD_ANON_19 (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1122, 4)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1106, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}changeInstructions uses Python identifier changeInstructions
-    __changeInstructions = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'changeInstructions'), 'changeInstructions', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_19_httpwww_omg_orgspecCTS21_1CoreServicechangeInstructions', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1124, 6), )
+    __changeInstructions = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'changeInstructions'), 'changeInstructions', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_19_httpwww_omg_orgspecCTS21_1CoreServicechangeInstructions', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1108, 6), )
 
     
     changeInstructions = property(__changeInstructions.value, __changeInstructions.set, None, None)
@@ -1561,13 +1568,13 @@ class CTD_ANON_20 (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1129, 4)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1113, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/CoreService}officialEffectiveDate uses Python identifier officialEffectiveDate
-    __officialEffectiveDate = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'officialEffectiveDate'), 'officialEffectiveDate', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_20_httpwww_omg_orgspecCTS21_1CoreServiceofficialEffectiveDate', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1131, 6), )
+    __officialEffectiveDate = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'officialEffectiveDate'), 'officialEffectiveDate', '__httpwww_omg_orgspecCTS21_1CoreService_CTD_ANON_20_httpwww_omg_orgspecCTS21_1CoreServiceofficialEffectiveDate', False, pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1115, 6), )
 
     
     officialEffectiveDate = property(__officialEffectiveDate.value, __officialEffectiveDate.set, None, None)
@@ -2145,23 +2152,23 @@ class NameOrURI_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_EMPTY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'NameOrURI')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 869, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 853, 1)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Attribute name uses Python identifier name
     __name = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, u'name'), 'name', '__httpwww_omg_orgspecCTS21_1CoreService_NameOrURI__name', _ImportedBinding__nsgroup.String)
-    __name._DeclarationLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 874, 2)
-    __name._UseLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 874, 2)
+    __name._DeclarationLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 858, 2)
+    __name._UseLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 858, 2)
     
     name = property(__name.value, __name.set, None, u'a  that references a unique resource within the context of the service implementation and type of resource being accessed')
 
     
     # Attribute uri uses Python identifier uri
     __uri = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, u'uri'), 'uri', '__httpwww_omg_orgspecCTS21_1CoreService_NameOrURI__uri', _ImportedBinding__nsgroup.String)
-    __uri._DeclarationLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 879, 2)
-    __uri._UseLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 879, 2)
+    __uri._DeclarationLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 863, 2)
+    __uri._UseLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 863, 2)
     
     uri = property(__uri.value, __uri.set, None, u'an  that references a unique resource within the context of the resource type')
 
@@ -2182,15 +2189,15 @@ class URIResolutionService_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_EMPTY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'URIResolutionService')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1043, 1)
+    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1027, 1)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Attribute lastUpdated uses Python identifier lastUpdated
     __lastUpdated = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, u'lastUpdated'), 'lastUpdated', '__httpwww_omg_orgspecCTS21_1CoreService_URIResolutionService__lastUpdated', _ImportedBinding__nsgroup.DateAndTime, required=True)
-    __lastUpdated._DeclarationLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1047, 2)
-    __lastUpdated._UseLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1047, 2)
+    __lastUpdated._DeclarationLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1031, 2)
+    __lastUpdated._UseLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1031, 2)
     
     lastUpdated = property(__lastUpdated.value, __lastUpdated.set, None, None)
 
@@ -2512,38 +2519,6 @@ class BaseImportService_ (ImportExportBase_):
 Namespace.addCategoryObject('typeBinding', u'BaseImportService', BaseImportService_)
 
 
-# Complex type {http://www.omg.org/spec/CTS2/1.1/CoreService}PropertyNameOrURI with content type ELEMENT_ONLY
-class PropertyNameOrURI_ (EntityNameOrURI_):
-    """A reference to a CTS model element.  may reference a model attribute, a  or a special element such as match strength."""
-    _TypeDefinition = None
-    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
-    _Abstract = False
-    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'PropertyNameOrURI')
-    _XSDLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 853, 1)
-    _ElementMap = EntityNameOrURI_._ElementMap.copy()
-    _AttributeMap = EntityNameOrURI_._AttributeMap.copy()
-    # Base type is EntityNameOrURI_
-    
-    # Element entityName ({http://www.omg.org/spec/CTS2/1.1/CoreService}entityName) inherited from {http://www.omg.org/spec/CTS2/1.1/CoreService}EntityNameOrURI
-    
-    # Element uri ({http://www.omg.org/spec/CTS2/1.1/CoreService}uri) inherited from {http://www.omg.org/spec/CTS2/1.1/CoreService}EntityNameOrURI
-    
-    # Attribute referenceType uses Python identifier referenceType
-    __referenceType = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, u'referenceType'), 'referenceType', '__httpwww_omg_orgspecCTS21_1CoreService_PropertyNameOrURI__referenceType', _ImportedBinding__nsgroup.TargetReferenceType, required=True)
-    __referenceType._DeclarationLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 859, 4)
-    __referenceType._UseLocation = pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 859, 4)
-    
-    referenceType = property(__referenceType.value, __referenceType.set, None, u'the type of thing being referenced')
-
-    _ElementMap.update({
-        
-    })
-    _AttributeMap.update({
-        __referenceType.name() : __referenceType
-    })
-Namespace.addCategoryObject('typeBinding', u'PropertyNameOrURI', PropertyNameOrURI_)
-
-
 # Complex type {http://www.omg.org/spec/CTS2/1.1/CoreService}FunctionalProfileEntry with content type SIMPLE
 class FunctionalProfileEntry (pyxb.binding.basis.complexTypeDefinition):
     """The combination of a  and a link to the service description that describes the function/structure"""
@@ -2712,28 +2687,28 @@ Namespace.addCategoryObject('elementBinding', EntityNameOrURI.name().localName()
 EntityNameOrURIList = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'EntityNameOrURIList'), EntityNameOrURIList_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 842, 1))
 Namespace.addCategoryObject('elementBinding', EntityNameOrURIList.name().localName(), EntityNameOrURIList)
 
-NameOrURIList = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'NameOrURIList'), NameOrURIList_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 886, 1))
+NameOrURIList = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'NameOrURIList'), NameOrURIList_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 870, 1))
 Namespace.addCategoryObject('elementBinding', NameOrURIList.name().localName(), NameOrURIList)
 
-QueryControl = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'QueryControl'), QueryControl_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 915, 1))
+QueryControl = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'QueryControl'), QueryControl_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 899, 1))
 Namespace.addCategoryObject('elementBinding', QueryControl.name().localName(), QueryControl)
 
-ReadContext = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'ReadContext'), ReadContext_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 964, 1))
+ReadContext = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'ReadContext'), ReadContext_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 948, 1))
 Namespace.addCategoryObject('elementBinding', ReadContext.name().localName(), ReadContext)
 
-SortCriteria = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'SortCriteria'), SortCriteria_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 994, 1))
+SortCriteria = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'SortCriteria'), SortCriteria_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 978, 1))
 Namespace.addCategoryObject('elementBinding', SortCriteria.name().localName(), SortCriteria)
 
-SortCriterion = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'SortCriterion'), SortCriterion_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1004, 1))
+SortCriterion = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'SortCriterion'), SortCriterion_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 988, 1))
 Namespace.addCategoryObject('elementBinding', SortCriterion.name().localName(), SortCriterion)
 
-VersionResolutionService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'VersionResolutionService'), VersionResolutionService_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1050, 1))
+VersionResolutionService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'VersionResolutionService'), VersionResolutionService_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1034, 1))
 Namespace.addCategoryObject('elementBinding', VersionResolutionService.name().localName(), VersionResolutionService)
 
-UpdateChangeableMetadataRequest = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'UpdateChangeableMetadataRequest'), UpdateChangeableMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1063, 1))
+UpdateChangeableMetadataRequest = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'UpdateChangeableMetadataRequest'), UpdateChangeableMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1047, 1))
 Namespace.addCategoryObject('elementBinding', UpdateChangeableMetadataRequest.name().localName(), UpdateChangeableMetadataRequest)
 
-UpdateChangeSetMetadataRequest = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'UpdateChangeSetMetadataRequest'), UpdateChangeSetMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1104, 1))
+UpdateChangeSetMetadataRequest = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'UpdateChangeSetMetadataRequest'), UpdateChangeSetMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1088, 1))
 Namespace.addCategoryObject('elementBinding', UpdateChangeSetMetadataRequest.name().localName(), UpdateChangeSetMetadataRequest)
 
 BaseMaintenanceService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'BaseMaintenanceService'), BaseMaintenanceService_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 303, 1))
@@ -2763,10 +2738,10 @@ Namespace.addCategoryObject('elementBinding', BaseReadService.name().localName()
 BaseUpdateService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'BaseUpdateService'), BaseUpdateService_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 807, 1))
 Namespace.addCategoryObject('elementBinding', BaseUpdateService.name().localName(), BaseUpdateService)
 
-NameOrURI = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'NameOrURI'), NameOrURI_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 868, 1))
+NameOrURI = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'NameOrURI'), NameOrURI_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 852, 1))
 Namespace.addCategoryObject('elementBinding', NameOrURI.name().localName(), NameOrURI)
 
-URIResolutionService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'URIResolutionService'), URIResolutionService_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1042, 1))
+URIResolutionService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'URIResolutionService'), URIResolutionService_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1026, 1))
 Namespace.addCategoryObject('elementBinding', URIResolutionService.name().localName(), URIResolutionService)
 
 UpdateAbstractResourceDescription = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'UpdateAbstractResourceDescription'), UpdateAbstractResourceDescription_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 317, 1))
@@ -2783,9 +2758,6 @@ Namespace.addCategoryObject('elementBinding', ExportStatus.name().localName(), E
 
 BaseImportService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'BaseImportService'), BaseImportService_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 590, 1))
 Namespace.addCategoryObject('elementBinding', BaseImportService.name().localName(), BaseImportService)
-
-PropertyNameOrURI = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'PropertyNameOrURI'), PropertyNameOrURI_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 852, 1))
-Namespace.addCategoryObject('elementBinding', PropertyNameOrURI.name().localName(), PropertyNameOrURI)
 
 ImportStatus = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'ImportStatus'), ImportStatus_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 601, 1))
 Namespace.addCategoryObject('elementBinding', ImportStatus.name().localName(), ImportStatus)
@@ -3654,7 +3626,7 @@ EntityNameOrURIList_._Automaton = _BuildAutomaton_20()
 
 
 
-NameOrURIList_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'entry'), NameOrURI_, scope=NameOrURIList_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 892, 3)))
+NameOrURIList_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'entry'), NameOrURI_, scope=NameOrURIList_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 876, 3)))
 
 def _BuildAutomaton_21 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3663,12 +3635,12 @@ def _BuildAutomaton_21 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 892, 3))
+    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 876, 3))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(NameOrURIList_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'entry')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 892, 3))
+    symbol = pyxb.binding.content.ElementUse(NameOrURIList_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'entry')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 876, 3))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -3681,13 +3653,13 @@ NameOrURIList_._Automaton = _BuildAutomaton_21()
 
 
 
-QueryControl_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'maxToReturn'), _ImportedBinding__nsgroup.NaturalNumber, scope=QueryControl_, documentation=u'The maximum number of  that may be present in a return . Note that a service may choose to return less than  entries - this is simply an upper limit. If  is not supplied, the service may use whatever return block size it determines to be most appropriate.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 921, 3)))
+QueryControl_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'maxToReturn'), _ImportedBinding__nsgroup.NaturalNumber, scope=QueryControl_, documentation=u'The maximum number of  that may be present in a return . Note that a service may choose to return less than  entries - this is simply an upper limit. If  is not supplied, the service may use whatever return block size it determines to be most appropriate.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 905, 3)))
 
-QueryControl_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'timeLimit'), _ImportedBinding__nsgroup.AmountOfTime, scope=QueryControl_, documentation=u'The maximum amount of time that may be taken to process a query before a time out exception occurs. If not present, the service determines the maximum query time out.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 926, 3)))
+QueryControl_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'timeLimit'), _ImportedBinding__nsgroup.AmountOfTime, scope=QueryControl_, documentation=u'The maximum amount of time that may be taken to process a query before a time out exception occurs. If not present, the service determines the maximum query time out.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 910, 3)))
 
-QueryControl_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'format'), NameOrURI_, scope=QueryControl_, documentation=u'The local identifier or URI of the return format for query results.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 931, 3)))
+QueryControl_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'format'), NameOrURI_, scope=QueryControl_, documentation=u'The local identifier or URI of the return format for query results.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 915, 3)))
 
-QueryControl_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'sortCriteria'), SortCriteria_, scope=QueryControl_, documentation=u'The local identifier or URI of the sort criteria for query results.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 936, 3)))
+QueryControl_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'sortCriteria'), SortCriteria_, scope=QueryControl_, documentation=u'The local identifier or URI of the sort criteria for query results.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 920, 3)))
 
 def _BuildAutomaton_22 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3696,33 +3668,33 @@ def _BuildAutomaton_22 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 921, 3))
+    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 905, 3))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 926, 3))
+    cc_1 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 910, 3))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 931, 3))
+    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 915, 3))
     counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 936, 3))
+    cc_3 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 920, 3))
     counters.add(cc_3)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(QueryControl_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'maxToReturn')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 921, 3))
+    symbol = pyxb.binding.content.ElementUse(QueryControl_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'maxToReturn')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 905, 3))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_1, False))
-    symbol = pyxb.binding.content.ElementUse(QueryControl_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'timeLimit')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 926, 3))
+    symbol = pyxb.binding.content.ElementUse(QueryControl_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'timeLimit')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 910, 3))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_2, False))
-    symbol = pyxb.binding.content.ElementUse(QueryControl_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'format')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 931, 3))
+    symbol = pyxb.binding.content.ElementUse(QueryControl_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'format')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 915, 3))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_3, False))
-    symbol = pyxb.binding.content.ElementUse(QueryControl_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'sortCriteria')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 936, 3))
+    symbol = pyxb.binding.content.ElementUse(QueryControl_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'sortCriteria')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 920, 3))
     st_3 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
     transitions = []
@@ -3759,13 +3731,13 @@ QueryControl_._Automaton = _BuildAutomaton_22()
 
 
 
-ReadContext_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'active'), ActiveOrAll, scope=ReadContext_, documentation=u'Determines whether the query only applies to only active or all entries. ', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 970, 3), unicode_default=u'ACTIVE_ONLY'))
+ReadContext_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'active'), ActiveOrAll, scope=ReadContext_, documentation=u'Determines whether the query only applies to only active or all entries. ', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 954, 3), unicode_default=u'ACTIVE_ONLY'))
 
-ReadContext_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'referenceLanguage'), NameOrURI_, scope=ReadContext_, documentation=u'The spoken or written language that should be used for the results of the inquiry, where appropriate.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 975, 3)))
+ReadContext_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'referenceLanguage'), NameOrURI_, scope=ReadContext_, documentation=u'The spoken or written language that should be used for the results of the inquiry, where appropriate.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 959, 3)))
 
-ReadContext_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'changeSetContext'), _ImportedBinding__nsgroup.ChangeSetURI, scope=ReadContext_, documentation=u'The URI of an open change set whose contents should be included in the results of the access request.  is only applicable in services that support the  profile', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 980, 3)))
+ReadContext_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'changeSetContext'), _ImportedBinding__nsgroup.ChangeSetURI, scope=ReadContext_, documentation=u'The URI of an open change set whose contents should be included in the results of the access request.  is only applicable in services that support the  profile', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 964, 3)))
 
-ReadContext_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'referenceTime'), _ImportedBinding__nsgroup.DateAndTime, scope=ReadContext_, documentation=u'The contextual date and time of the query.  is may only be present in services that support the  profile.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 985, 3)))
+ReadContext_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'referenceTime'), _ImportedBinding__nsgroup.DateAndTime, scope=ReadContext_, documentation=u'The contextual date and time of the query.  is may only be present in services that support the  profile.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 969, 3)))
 
 def _BuildAutomaton_23 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3774,33 +3746,33 @@ def _BuildAutomaton_23 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 970, 3))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 954, 3))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 975, 3))
+    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 959, 3))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 980, 3))
+    cc_2 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 964, 3))
     counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 985, 3))
+    cc_3 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 969, 3))
     counters.add(cc_3)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(ReadContext_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'active')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 970, 3))
+    symbol = pyxb.binding.content.ElementUse(ReadContext_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'active')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 954, 3))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_1, False))
-    symbol = pyxb.binding.content.ElementUse(ReadContext_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'referenceLanguage')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 975, 3))
+    symbol = pyxb.binding.content.ElementUse(ReadContext_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'referenceLanguage')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 959, 3))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_2, False))
-    symbol = pyxb.binding.content.ElementUse(ReadContext_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'changeSetContext')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 980, 3))
+    symbol = pyxb.binding.content.ElementUse(ReadContext_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'changeSetContext')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 964, 3))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_3, False))
-    symbol = pyxb.binding.content.ElementUse(ReadContext_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'referenceTime')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 985, 3))
+    symbol = pyxb.binding.content.ElementUse(ReadContext_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'referenceTime')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 969, 3))
     st_3 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
     transitions = []
@@ -3837,7 +3809,7 @@ ReadContext_._Automaton = _BuildAutomaton_23()
 
 
 
-SortCriteria_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'entry'), SortCriterion_, scope=SortCriteria_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1000, 3)))
+SortCriteria_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'entry'), SortCriterion_, scope=SortCriteria_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 984, 3)))
 
 def _BuildAutomaton_24 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3846,12 +3818,12 @@ def _BuildAutomaton_24 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1000, 3))
+    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 984, 3))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(SortCriteria_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'entry')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1000, 3))
+    symbol = pyxb.binding.content.ElementUse(SortCriteria_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'entry')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 984, 3))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -3864,9 +3836,9 @@ SortCriteria_._Automaton = _BuildAutomaton_24()
 
 
 
-SortCriterion_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'sortDirection'), SortDirection, scope=SortCriterion_, documentation=u'The sort order to be applied to the element.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1010, 3)))
+SortCriterion_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'sortDirection'), SortDirection, scope=SortCriterion_, documentation=u'The sort order to be applied to the element.', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 994, 3)))
 
-SortCriterion_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'sortElement'), PropertyNameOrURI_, scope=SortCriterion_, documentation=u'The type and name of the attribute, property or special element to be sorted', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1015, 3)))
+SortCriterion_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'sortElement'), _ImportedBinding__nsgroup.ComponentReference, scope=SortCriterion_, documentation=u'The type and name of the attribute, property or special element to be sorted', location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 999, 3)))
 
 def _BuildAutomaton_25 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3877,11 +3849,11 @@ def _BuildAutomaton_25 ():
     counters = set()
     states = []
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(SortCriterion_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'sortDirection')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1010, 3))
+    symbol = pyxb.binding.content.ElementUse(SortCriterion_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'sortDirection')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 994, 3))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(SortCriterion_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'sortElement')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1015, 3))
+    symbol = pyxb.binding.content.ElementUse(SortCriterion_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'sortElement')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 999, 3))
     st_1 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     transitions = []
@@ -3896,7 +3868,7 @@ SortCriterion_._Automaton = _BuildAutomaton_25()
 
 
 
-URIList._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'member'), _ImportedBinding__nsgroup.URI, scope=URIList, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1059, 3)))
+URIList._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'member'), _ImportedBinding__nsgroup.URI, scope=URIList, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1043, 3)))
 
 def _BuildAutomaton_26 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3905,12 +3877,12 @@ def _BuildAutomaton_26 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1059, 3))
+    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1043, 3))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(URIList._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'member')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1059, 3))
+    symbol = pyxb.binding.content.ElementUse(URIList._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'member')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1043, 3))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -3923,15 +3895,15 @@ URIList._Automaton = _BuildAutomaton_26()
 
 
 
-UpdateChangeableMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedStatus'), CTD_ANON_12, scope=UpdateChangeableMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1066, 3)))
+UpdateChangeableMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedStatus'), CTD_ANON_12, scope=UpdateChangeableMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1050, 3)))
 
-UpdateChangeableMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedEntryState'), CTD_ANON_13, scope=UpdateChangeableMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1073, 3)))
+UpdateChangeableMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedEntryState'), CTD_ANON_13, scope=UpdateChangeableMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1057, 3)))
 
-UpdateChangeableMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedEffectiveDate'), CTD_ANON_14, scope=UpdateChangeableMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1080, 3)))
+UpdateChangeableMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedEffectiveDate'), CTD_ANON_14, scope=UpdateChangeableMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1064, 3)))
 
-UpdateChangeableMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeNotes'), CTD_ANON_15, scope=UpdateChangeableMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1087, 3)))
+UpdateChangeableMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeNotes'), CTD_ANON_15, scope=UpdateChangeableMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1071, 3)))
 
-UpdateChangeableMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeSource'), CTD_ANON_16, scope=UpdateChangeableMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1094, 3)))
+UpdateChangeableMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeSource'), CTD_ANON_16, scope=UpdateChangeableMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1078, 3)))
 
 def _BuildAutomaton_27 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3940,40 +3912,40 @@ def _BuildAutomaton_27 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1066, 3))
+    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1050, 3))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1073, 3))
+    cc_1 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1057, 3))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1080, 3))
+    cc_2 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1064, 3))
     counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1087, 3))
+    cc_3 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1071, 3))
     counters.add(cc_3)
-    cc_4 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1094, 3))
+    cc_4 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1078, 3))
     counters.add(cc_4)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(UpdateChangeableMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedStatus')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1066, 3))
+    symbol = pyxb.binding.content.ElementUse(UpdateChangeableMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedStatus')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1050, 3))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_1, False))
-    symbol = pyxb.binding.content.ElementUse(UpdateChangeableMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedEntryState')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1073, 3))
+    symbol = pyxb.binding.content.ElementUse(UpdateChangeableMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedEntryState')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1057, 3))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_2, False))
-    symbol = pyxb.binding.content.ElementUse(UpdateChangeableMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedEffectiveDate')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1080, 3))
+    symbol = pyxb.binding.content.ElementUse(UpdateChangeableMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedEffectiveDate')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1064, 3))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_3, False))
-    symbol = pyxb.binding.content.ElementUse(UpdateChangeableMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeNotes')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1087, 3))
+    symbol = pyxb.binding.content.ElementUse(UpdateChangeableMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeNotes')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1071, 3))
     st_3 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_4, False))
-    symbol = pyxb.binding.content.ElementUse(UpdateChangeableMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeSource')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1094, 3))
+    symbol = pyxb.binding.content.ElementUse(UpdateChangeableMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeSource')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1078, 3))
     st_4 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_4)
     transitions = []
@@ -4022,7 +3994,7 @@ UpdateChangeableMetadataRequest_._Automaton = _BuildAutomaton_27()
 
 
 
-CTD_ANON_12._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'status'), NameOrURI_, scope=CTD_ANON_12, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1069, 6)))
+CTD_ANON_12._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'status'), NameOrURI_, scope=CTD_ANON_12, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1053, 6)))
 
 def _BuildAutomaton_28 ():
     # Remove this helper function from the namespace after it is invoked
@@ -4031,12 +4003,12 @@ def _BuildAutomaton_28 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1069, 6))
+    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1053, 6))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON_12._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'status')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1069, 6))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON_12._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'status')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1053, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -4049,7 +4021,7 @@ CTD_ANON_12._Automaton = _BuildAutomaton_28()
 
 
 
-CTD_ANON_13._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'entryState'), _ImportedBinding__nsgroup.EntryState, scope=CTD_ANON_13, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1076, 6)))
+CTD_ANON_13._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'entryState'), _ImportedBinding__nsgroup.EntryState, scope=CTD_ANON_13, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1060, 6)))
 
 def _BuildAutomaton_29 ():
     # Remove this helper function from the namespace after it is invoked
@@ -4060,7 +4032,7 @@ def _BuildAutomaton_29 ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON_13._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'entryState')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1076, 6))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON_13._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'entryState')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1060, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -4071,7 +4043,7 @@ CTD_ANON_13._Automaton = _BuildAutomaton_29()
 
 
 
-CTD_ANON_14._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'effectiveDate'), _ImportedBinding__nsgroup.DateAndTime, scope=CTD_ANON_14, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1083, 6)))
+CTD_ANON_14._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'effectiveDate'), _ImportedBinding__nsgroup.DateAndTime, scope=CTD_ANON_14, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1067, 6)))
 
 def _BuildAutomaton_30 ():
     # Remove this helper function from the namespace after it is invoked
@@ -4080,12 +4052,12 @@ def _BuildAutomaton_30 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1083, 6))
+    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1067, 6))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON_14._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'effectiveDate')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1083, 6))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON_14._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'effectiveDate')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1067, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -4098,7 +4070,7 @@ CTD_ANON_14._Automaton = _BuildAutomaton_30()
 
 
 
-CTD_ANON_15._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'changeNotes'), _ImportedBinding__nsgroup.OpaqueData, scope=CTD_ANON_15, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1090, 6)))
+CTD_ANON_15._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'changeNotes'), _ImportedBinding__nsgroup.OpaqueData, scope=CTD_ANON_15, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1074, 6)))
 
 def _BuildAutomaton_31 ():
     # Remove this helper function from the namespace after it is invoked
@@ -4107,12 +4079,12 @@ def _BuildAutomaton_31 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1090, 6))
+    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1074, 6))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON_15._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'changeNotes')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1090, 6))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON_15._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'changeNotes')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1074, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -4125,7 +4097,7 @@ CTD_ANON_15._Automaton = _BuildAutomaton_31()
 
 
 
-CTD_ANON_16._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'changeSource'), _ImportedBinding__nsgroup.SourceReference, scope=CTD_ANON_16, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1097, 6)))
+CTD_ANON_16._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'changeSource'), _ImportedBinding__nsgroup.SourceReference, scope=CTD_ANON_16, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1081, 6)))
 
 def _BuildAutomaton_32 ():
     # Remove this helper function from the namespace after it is invoked
@@ -4134,12 +4106,12 @@ def _BuildAutomaton_32 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1097, 6))
+    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1081, 6))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON_16._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'changeSource')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1097, 6))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON_16._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'changeSource')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1081, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -4152,13 +4124,13 @@ CTD_ANON_16._Automaton = _BuildAutomaton_32()
 
 
 
-UpdateChangeSetMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedState'), CTD_ANON_17, scope=UpdateChangeSetMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1107, 3)))
+UpdateChangeSetMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedState'), CTD_ANON_17, scope=UpdateChangeSetMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1091, 3)))
 
-UpdateChangeSetMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedCreator'), CTD_ANON_18, scope=UpdateChangeSetMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1114, 3)))
+UpdateChangeSetMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedCreator'), CTD_ANON_18, scope=UpdateChangeSetMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1098, 3)))
 
-UpdateChangeSetMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeInstructions'), CTD_ANON_19, scope=UpdateChangeSetMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1121, 3)))
+UpdateChangeSetMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeInstructions'), CTD_ANON_19, scope=UpdateChangeSetMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1105, 3)))
 
-UpdateChangeSetMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedOfficialEffectiveDate'), CTD_ANON_20, scope=UpdateChangeSetMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1128, 3)))
+UpdateChangeSetMetadataRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedOfficialEffectiveDate'), CTD_ANON_20, scope=UpdateChangeSetMetadataRequest_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1112, 3)))
 
 def _BuildAutomaton_33 ():
     # Remove this helper function from the namespace after it is invoked
@@ -4167,33 +4139,33 @@ def _BuildAutomaton_33 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1107, 3))
+    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1091, 3))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1114, 3))
+    cc_1 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1098, 3))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1121, 3))
+    cc_2 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1105, 3))
     counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1128, 3))
+    cc_3 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1112, 3))
     counters.add(cc_3)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(UpdateChangeSetMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedState')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1107, 3))
+    symbol = pyxb.binding.content.ElementUse(UpdateChangeSetMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedState')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1091, 3))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_1, False))
-    symbol = pyxb.binding.content.ElementUse(UpdateChangeSetMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedCreator')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1114, 3))
+    symbol = pyxb.binding.content.ElementUse(UpdateChangeSetMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedCreator')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1098, 3))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_2, False))
-    symbol = pyxb.binding.content.ElementUse(UpdateChangeSetMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeInstructions')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1121, 3))
+    symbol = pyxb.binding.content.ElementUse(UpdateChangeSetMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedChangeInstructions')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1105, 3))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_3, False))
-    symbol = pyxb.binding.content.ElementUse(UpdateChangeSetMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedOfficialEffectiveDate')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1128, 3))
+    symbol = pyxb.binding.content.ElementUse(UpdateChangeSetMetadataRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedOfficialEffectiveDate')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1112, 3))
     st_3 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
     transitions = []
@@ -4230,7 +4202,7 @@ UpdateChangeSetMetadataRequest_._Automaton = _BuildAutomaton_33()
 
 
 
-CTD_ANON_17._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'state'), _ImportedBinding__nsgroup.FinalizableState, scope=CTD_ANON_17, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1110, 6)))
+CTD_ANON_17._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'state'), _ImportedBinding__nsgroup.FinalizableState, scope=CTD_ANON_17, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1094, 6)))
 
 def _BuildAutomaton_34 ():
     # Remove this helper function from the namespace after it is invoked
@@ -4241,7 +4213,7 @@ def _BuildAutomaton_34 ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON_17._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'state')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1110, 6))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON_17._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'state')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1094, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -4252,7 +4224,7 @@ CTD_ANON_17._Automaton = _BuildAutomaton_34()
 
 
 
-CTD_ANON_18._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'creator'), NameOrURI_, scope=CTD_ANON_18, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1117, 6)))
+CTD_ANON_18._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'creator'), NameOrURI_, scope=CTD_ANON_18, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1101, 6)))
 
 def _BuildAutomaton_35 ():
     # Remove this helper function from the namespace after it is invoked
@@ -4261,12 +4233,12 @@ def _BuildAutomaton_35 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1117, 6))
+    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1101, 6))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON_18._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'creator')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1117, 6))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON_18._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'creator')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1101, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -4279,7 +4251,7 @@ CTD_ANON_18._Automaton = _BuildAutomaton_35()
 
 
 
-CTD_ANON_19._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'changeInstructions'), _ImportedBinding__nsgroup.OpaqueData, scope=CTD_ANON_19, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1124, 6)))
+CTD_ANON_19._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'changeInstructions'), _ImportedBinding__nsgroup.OpaqueData, scope=CTD_ANON_19, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1108, 6)))
 
 def _BuildAutomaton_36 ():
     # Remove this helper function from the namespace after it is invoked
@@ -4288,12 +4260,12 @@ def _BuildAutomaton_36 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1124, 6))
+    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1108, 6))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON_19._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'changeInstructions')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1124, 6))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON_19._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'changeInstructions')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1108, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -4306,7 +4278,7 @@ CTD_ANON_19._Automaton = _BuildAutomaton_36()
 
 
 
-CTD_ANON_20._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'officialEffectiveDate'), _ImportedBinding__nsgroup.DateAndTime, scope=CTD_ANON_20, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1131, 6)))
+CTD_ANON_20._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'officialEffectiveDate'), _ImportedBinding__nsgroup.DateAndTime, scope=CTD_ANON_20, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1115, 6)))
 
 def _BuildAutomaton_37 ():
     # Remove this helper function from the namespace after it is invoked
@@ -4315,12 +4287,12 @@ def _BuildAutomaton_37 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1131, 6))
+    cc_0 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1115, 6))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON_20._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'officialEffectiveDate')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1131, 6))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON_20._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'officialEffectiveDate')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 1115, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -5934,52 +5906,14 @@ BaseImportService_._Automaton = _BuildAutomaton_52()
 
 
 
-def _BuildAutomaton_53 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_53
-    del _BuildAutomaton_53
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 829, 3))
-    counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 834, 3))
-    counters.add(cc_1)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(PropertyNameOrURI_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'entityName')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 829, 3))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_1, False))
-    symbol = pyxb.binding.content.ElementUse(PropertyNameOrURI_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'uri')), pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 834, 3))
-    st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_1)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    transitions.append(fac.Transition(st_1, [
-        fac.UpdateInstruction(cc_0, False) ]))
-    st_0._set_transitionSet(transitions)
-    transitions = []
-    transitions.append(fac.Transition(st_1, [
-        fac.UpdateInstruction(cc_1, True) ]))
-    st_1._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=None)
-PropertyNameOrURI_._Automaton = _BuildAutomaton_53()
-
-
-
-
 ImportStatus_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'languageAndSyntax'), _ImportedBinding__nsgroup.OntologyLanguageAndSyntax, scope=ImportStatus_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 609, 5)))
 
 ImportStatus_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'validation'), ValidationLevel, scope=ImportStatus_, location=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 610, 5)))
 
-def _BuildAutomaton_54 ():
+def _BuildAutomaton_53 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_54
-    del _BuildAutomaton_54
+    global _BuildAutomaton_53
+    del _BuildAutomaton_53
     import pyxb.utils.fac as fac
 
     counters = set()
@@ -6011,5 +5945,5 @@ def _BuildAutomaton_54 ():
     transitions = []
     st_2._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-ImportStatus_._Automaton = _BuildAutomaton_54()
+ImportStatus_._Automaton = _BuildAutomaton_53()
 

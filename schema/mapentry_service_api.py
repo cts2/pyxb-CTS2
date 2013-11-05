@@ -1,27 +1,28 @@
 # ./mapentry_service_api.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:d045e739ca7a60c09176ff3b4f34c6c5f55ea812
-# Generated 2013-04-18 16:41:20.528579 by PyXB version 1.2.2
+# Generated 2013-11-05 15:25:28.327444 by PyXB version 1.2.3
 # Namespace http://www.omg.org/spec/CTS2/1.1/MapEntryServices
 
 import pyxb
 import pyxb.binding
 import pyxb.binding.saxer
-import StringIO
+import io
 import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:b2e57fe8-a870-11e2-a91a-c82a1438c957')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c74202c2-4660-11e3-9c81-c82a1438c957')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.2'
+_PyXBVersion = '1.2.3'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
 
 # Import bindings for namespaces imported into schema
+import core_api as _ImportedBinding_core_api
 import core_service_api as _ImportedBinding_core_service_api
 import pyxb.binding.datatypes
 import _nsgroup as _ImportedBinding__nsgroup
@@ -29,14 +30,20 @@ import _nsgroup as _ImportedBinding__nsgroup
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI(u'http://www.omg.org/spec/CTS2/1.1/MapEntryServices', create_if_missing=True)
 Namespace.configureCategories(['typeBinding', 'elementBinding'])
+_Namespace_core = _ImportedBinding_core_api.Namespace
+_Namespace_core.configureCategories(['typeBinding', 'elementBinding'])
 _Namespace_coreservice = _ImportedBinding_core_service_api.Namespace
 _Namespace_coreservice.configureCategories(['typeBinding', 'elementBinding'])
 
 def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
     """Parse the given XML and use the document element to create a
     Python instance.
-    
-    @kw default_namespace The L{pyxb.Namespace} instance to use as the
+
+    @param xml_text An XML document.  This should be data (Python 2
+    str or Python 3 bytes), or a text (Python 2 unicode or Python 3
+    str) in the L{pyxb._InputEncoding} encoding.
+
+    @keyword default_namespace The L{pyxb.Namespace} instance to use as the
     default namespace where there is no default namespace in scope.
     If unspecified or C{None}, the namespace of the module containing
     this function will be used.
@@ -54,7 +61,10 @@ def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
         default_namespace = Namespace.fallbackNamespace()
     saxer = pyxb.binding.saxer.make_parser(fallback_namespace=default_namespace, location_base=location_base)
     handler = saxer.getContentHandler()
-    saxer.parse(StringIO.StringIO(xml_text))
+    xmld = xml_text
+    if isinstance(xmld, unicode):
+        xmld = xmld.encode(pyxb._InputEncoding)
+    saxer.parse(io.BytesIO(xmld))
     instance = handler.rootObject()
     return instance
 
@@ -389,20 +399,20 @@ class CTD_ANON_7 (pyxb.binding.basis.complexTypeDefinition):
 
 
 # Complex type {http://www.omg.org/spec/CTS2/1.1/MapEntryServices}MapTargetListList with content type ELEMENT_ONLY
-class MapTargetListList_ (pyxb.binding.basis.complexTypeDefinition):
+class MapTargetListList (pyxb.binding.basis.complexTypeDefinition):
     """A list of map target lists, one per input entity
 			"""
     _TypeDefinition = None
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'MapTargetListList')
-    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 191, 1)
+    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 206, 1)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/MapEntryServices}entry uses Python identifier entry
-    __entry = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'entry'), 'entry', '__httpwww_omg_orgspecCTS21_1MapEntryServices_MapTargetListList__httpwww_omg_orgspecCTS21_1MapEntryServicesentry', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 197, 3), )
+    __entry = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'entry'), 'entry', '__httpwww_omg_orgspecCTS21_1MapEntryServices_MapTargetListList_httpwww_omg_orgspecCTS21_1MapEntryServicesentry', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 212, 3), )
 
     
     entry = property(__entry.value, __entry.set, None, None)
@@ -413,23 +423,23 @@ class MapTargetListList_ (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-Namespace.addCategoryObject('typeBinding', u'MapTargetListList', MapTargetListList_)
+Namespace.addCategoryObject('typeBinding', u'MapTargetListList', MapTargetListList)
 
 
 # Complex type {http://www.omg.org/spec/CTS2/1.1/MapEntryServices}MapTargetList with content type ELEMENT_ONLY
-class MapTargetList_ (pyxb.binding.basis.complexTypeDefinition):
+class MapTargetList (pyxb.binding.basis.complexTypeDefinition):
     """An ordered list of map targets """
     _TypeDefinition = None
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'MapTargetList')
-    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 203, 1)
+    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 239, 1)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {http://www.omg.org/spec/CTS2/1.1/MapEntryServices}entry uses Python identifier entry
-    __entry = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'entry'), 'entry', '__httpwww_omg_orgspecCTS21_1MapEntryServices_MapTargetList__httpwww_omg_orgspecCTS21_1MapEntryServicesentry', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 208, 3), )
+    __entry = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'entry'), 'entry', '__httpwww_omg_orgspecCTS21_1MapEntryServices_MapTargetList_httpwww_omg_orgspecCTS21_1MapEntryServicesentry', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 244, 3), )
 
     
     entry = property(__entry.value, __entry.set, None, None)
@@ -440,7 +450,96 @@ class MapTargetList_ (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-Namespace.addCategoryObject('typeBinding', u'MapTargetList', MapTargetList_)
+Namespace.addCategoryObject('typeBinding', u'MapTargetList', MapTargetList)
+
+
+# Complex type {http://www.omg.org/spec/CTS2/1.1/MapEntryServices}MapTargetListListMsg with content type ELEMENT_ONLY
+class MapTargetListListMsg_ (_ImportedBinding__nsgroup.Message):
+    """A list of map target lists, one per input entity
+			"""
+    _TypeDefinition = None
+    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
+    _Abstract = False
+    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'MapTargetListListMsg')
+    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 191, 1)
+    _ElementMap = _ImportedBinding__nsgroup.Message._ElementMap.copy()
+    _AttributeMap = _ImportedBinding__nsgroup.Message._AttributeMap.copy()
+    # Base type is _ImportedBinding__nsgroup.Message
+    
+    # Element heading ({http://www.omg.org/spec/CTS2/1.1/Core}heading) inherited from {http://www.omg.org/spec/CTS2/1.1/Core}Message
+    
+    # Element {http://www.omg.org/spec/CTS2/1.1/MapEntryServices}mapTargetListList uses Python identifier mapTargetListList
+    __mapTargetListList = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'mapTargetListList'), 'mapTargetListList', '__httpwww_omg_orgspecCTS21_1MapEntryServices_MapTargetListListMsg__httpwww_omg_orgspecCTS21_1MapEntryServicesmapTargetListList', False, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 200, 5), )
+
+    
+    mapTargetListList = property(__mapTargetListList.value, __mapTargetListList.set, None, None)
+
+    _ElementMap.update({
+        __mapTargetListList.name() : __mapTargetListList
+    })
+    _AttributeMap.update({
+        
+    })
+Namespace.addCategoryObject('typeBinding', u'MapTargetListListMsg', MapTargetListListMsg_)
+
+
+# Complex type [anonymous] with content type ELEMENT_ONLY
+class CTD_ANON_8 (MapTargetList):
+    """Complex type [anonymous] with content type ELEMENT_ONLY"""
+    _TypeDefinition = None
+    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
+    _Abstract = False
+    _ExpandedName = None
+    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 213, 4)
+    _ElementMap = MapTargetList._ElementMap.copy()
+    _AttributeMap = MapTargetList._AttributeMap.copy()
+    # Base type is MapTargetList
+    
+    # Element entry ({http://www.omg.org/spec/CTS2/1.1/MapEntryServices}entry) inherited from {http://www.omg.org/spec/CTS2/1.1/MapEntryServices}MapTargetList
+    
+    # Attribute entryOrder uses Python identifier entryOrder
+    __entryOrder = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, u'entryOrder'), 'entryOrder', '__httpwww_omg_orgspecCTS21_1MapEntryServices_CTD_ANON_8_entryOrder', pyxb.binding.datatypes.positiveInteger, required=True)
+    __entryOrder._DeclarationLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/Core.xsd', 2106, 2)
+    __entryOrder._UseLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/Core.xsd', 2106, 2)
+    
+    entryOrder = property(__entryOrder.value, __entryOrder.set, None, None)
+
+    _ElementMap.update({
+        
+    })
+    _AttributeMap.update({
+        __entryOrder.name() : __entryOrder
+    })
+
+
+
+# Complex type {http://www.omg.org/spec/CTS2/1.1/MapEntryServices}MapTargetListMsg with content type ELEMENT_ONLY
+class MapTargetListMsg_ (_ImportedBinding__nsgroup.Message):
+    """An ordered list of map targets """
+    _TypeDefinition = None
+    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
+    _Abstract = False
+    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'MapTargetListMsg')
+    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 225, 1)
+    _ElementMap = _ImportedBinding__nsgroup.Message._ElementMap.copy()
+    _AttributeMap = _ImportedBinding__nsgroup.Message._AttributeMap.copy()
+    # Base type is _ImportedBinding__nsgroup.Message
+    
+    # Element heading ({http://www.omg.org/spec/CTS2/1.1/Core}heading) inherited from {http://www.omg.org/spec/CTS2/1.1/Core}Message
+    
+    # Element {http://www.omg.org/spec/CTS2/1.1/MapEntryServices}mapTargetList uses Python identifier mapTargetList
+    __mapTargetList = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'mapTargetList'), 'mapTargetList', '__httpwww_omg_orgspecCTS21_1MapEntryServices_MapTargetListMsg__httpwww_omg_orgspecCTS21_1MapEntryServicesmapTargetList', False, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 233, 5), )
+
+    
+    mapTargetList = property(__mapTargetList.value, __mapTargetList.set, None, None)
+
+    _ElementMap.update({
+        __mapTargetList.name() : __mapTargetList
+    })
+    _AttributeMap.update({
+        
+    })
+Namespace.addCategoryObject('typeBinding', u'MapTargetListMsg', MapTargetListMsg_)
 
 
 # Complex type {http://www.omg.org/spec/CTS2/1.1/MapEntryServices}MapResolutionService with content type ELEMENT_ONLY
@@ -451,7 +550,7 @@ class MapResolutionService_ (_ImportedBinding_core_service_api.BaseService_):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'MapResolutionService')
-    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 214, 1)
+    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 250, 1)
     _ElementMap = _ImportedBinding_core_service_api.BaseService_._ElementMap.copy()
     _AttributeMap = _ImportedBinding_core_service_api.BaseService_._AttributeMap.copy()
     # Base type is _ImportedBinding_core_service_api.BaseService_
@@ -657,13 +756,13 @@ Namespace.addCategoryObject('elementBinding', MapTargetRequest.name().localName(
 UpdateMapEntryRequest = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'UpdateMapEntryRequest'), UpdateMapEntryRequest_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 141, 1))
 Namespace.addCategoryObject('elementBinding', UpdateMapEntryRequest.name().localName(), UpdateMapEntryRequest)
 
-MapTargetListList = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'MapTargetListList'), MapTargetListList_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 190, 1))
-Namespace.addCategoryObject('elementBinding', MapTargetListList.name().localName(), MapTargetListList)
+MapTargetListListMsg = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'MapTargetListListMsg'), MapTargetListListMsg_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 190, 1))
+Namespace.addCategoryObject('elementBinding', MapTargetListListMsg.name().localName(), MapTargetListListMsg)
 
-MapTargetList = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'MapTargetList'), MapTargetList_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 202, 1))
-Namespace.addCategoryObject('elementBinding', MapTargetList.name().localName(), MapTargetList)
+MapTargetListMsg = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'MapTargetListMsg'), MapTargetListMsg_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 224, 1))
+Namespace.addCategoryObject('elementBinding', MapTargetListMsg.name().localName(), MapTargetListMsg)
 
-MapResolutionService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'MapResolutionService'), MapResolutionService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 213, 1))
+MapResolutionService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'MapResolutionService'), MapResolutionService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 249, 1))
 Namespace.addCategoryObject('elementBinding', MapResolutionService.name().localName(), MapResolutionService)
 
 MapEntryReadService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'MapEntryReadService'), MapEntryReadService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 13, 1))
@@ -1055,7 +1154,7 @@ CTD_ANON_7._Automaton = _BuildAutomaton_9()
 
 
 
-MapTargetListList_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'entry'), MapTargetList_, scope=MapTargetListList_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 197, 3)))
+MapTargetListList._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'entry'), CTD_ANON_8, scope=MapTargetListList, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 212, 3)))
 
 def _BuildAutomaton_10 ():
     # Remove this helper function from the namespace after it is invoked
@@ -1066,7 +1165,7 @@ def _BuildAutomaton_10 ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(MapTargetListList_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'entry')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 197, 3))
+    symbol = pyxb.binding.content.ElementUse(MapTargetListList._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'entry')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 212, 3))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1074,12 +1173,12 @@ def _BuildAutomaton_10 ():
          ]))
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-MapTargetListList_._Automaton = _BuildAutomaton_10()
+MapTargetListList._Automaton = _BuildAutomaton_10()
 
 
 
 
-MapTargetList_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'entry'), _ImportedBinding__nsgroup.MapTarget, scope=MapTargetList_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 208, 3)))
+MapTargetList._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'entry'), _ImportedBinding__nsgroup.MapTarget, scope=MapTargetList, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 244, 3)))
 
 def _BuildAutomaton_11 ():
     # Remove this helper function from the namespace after it is invoked
@@ -1088,12 +1187,12 @@ def _BuildAutomaton_11 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 208, 3))
+    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 244, 3))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(MapTargetList_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'entry')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 208, 3))
+    symbol = pyxb.binding.content.ElementUse(MapTargetList._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'entry')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 244, 3))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1101,15 +1200,100 @@ def _BuildAutomaton_11 ():
         fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=None)
-MapTargetList_._Automaton = _BuildAutomaton_11()
+MapTargetList._Automaton = _BuildAutomaton_11()
 
 
 
+
+MapTargetListListMsg_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'mapTargetListList'), MapTargetListList, scope=MapTargetListListMsg_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 200, 5)))
 
 def _BuildAutomaton_12 ():
     # Remove this helper function from the namespace after it is invoked
     global _BuildAutomaton_12
     del _BuildAutomaton_12
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = None
+    symbol = pyxb.binding.content.ElementUse(MapTargetListListMsg_._UseForTag(pyxb.namespace.ExpandedName(_Namespace_core, u'heading')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/Core.xsd', 2101, 3))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(MapTargetListListMsg_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'mapTargetListList')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 200, 5))
+    st_1 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_1)
+    transitions = []
+    transitions.append(fac.Transition(st_1, [
+         ]))
+    st_0._set_transitionSet(transitions)
+    transitions = []
+    st_1._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=None)
+MapTargetListListMsg_._Automaton = _BuildAutomaton_12()
+
+
+
+
+def _BuildAutomaton_13 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_13
+    del _BuildAutomaton_13
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 244, 3))
+    counters.add(cc_0)
+    states = []
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON_8._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'entry')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 244, 3))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=None)
+CTD_ANON_8._Automaton = _BuildAutomaton_13()
+
+
+
+
+MapTargetListMsg_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'mapTargetList'), MapTargetList, scope=MapTargetListMsg_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 233, 5)))
+
+def _BuildAutomaton_14 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_14
+    del _BuildAutomaton_14
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = None
+    symbol = pyxb.binding.content.ElementUse(MapTargetListMsg_._UseForTag(pyxb.namespace.ExpandedName(_Namespace_core, u'heading')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/Core.xsd', 2101, 3))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(MapTargetListMsg_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'mapTargetList')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/mapversion/MapEntryServices.xsd', 233, 5))
+    st_1 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_1)
+    transitions = []
+    transitions.append(fac.Transition(st_1, [
+         ]))
+    st_0._set_transitionSet(transitions)
+    transitions = []
+    st_1._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=None)
+MapTargetListMsg_._Automaton = _BuildAutomaton_14()
+
+
+
+
+def _BuildAutomaton_15 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_15
+    del _BuildAutomaton_15
     import pyxb.utils.fac as fac
 
     counters = set()
@@ -1191,15 +1375,15 @@ def _BuildAutomaton_12 ():
          ]))
     st_8._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-MapResolutionService_._Automaton = _BuildAutomaton_12()
+MapResolutionService_._Automaton = _BuildAutomaton_15()
 
 
 
 
-def _BuildAutomaton_13 ():
+def _BuildAutomaton_16 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_13
-    del _BuildAutomaton_13
+    global _BuildAutomaton_16
+    del _BuildAutomaton_16
     import pyxb.utils.fac as fac
 
     counters = set()
@@ -1281,15 +1465,15 @@ def _BuildAutomaton_13 ():
          ]))
     st_8._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-MapEntryReadService_._Automaton = _BuildAutomaton_13()
+MapEntryReadService_._Automaton = _BuildAutomaton_16()
 
 
 
 
-def _BuildAutomaton_14 ():
+def _BuildAutomaton_17 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_14
-    del _BuildAutomaton_14
+    global _BuildAutomaton_17
+    del _BuildAutomaton_17
     import pyxb.utils.fac as fac
 
     counters = set()
@@ -1405,15 +1589,15 @@ def _BuildAutomaton_14 ():
          ]))
     st_11._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-MapEntryQueryService_._Automaton = _BuildAutomaton_14()
+MapEntryQueryService_._Automaton = _BuildAutomaton_17()
 
 
 
 
-def _BuildAutomaton_15 ():
+def _BuildAutomaton_18 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_15
-    del _BuildAutomaton_15
+    global _BuildAutomaton_18
+    del _BuildAutomaton_18
     import pyxb.utils.fac as fac
 
     counters = set()
@@ -1503,15 +1687,15 @@ def _BuildAutomaton_15 ():
     transitions = []
     st_9._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-MapEntryHistoryService_._Automaton = _BuildAutomaton_15()
+MapEntryHistoryService_._Automaton = _BuildAutomaton_18()
 
 
 
 
-def _BuildAutomaton_16 ():
+def _BuildAutomaton_19 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_16
-    del _BuildAutomaton_16
+    global _BuildAutomaton_19
+    del _BuildAutomaton_19
     import pyxb.utils.fac as fac
 
     counters = set()
@@ -1593,5 +1777,5 @@ def _BuildAutomaton_16 ():
          ]))
     st_8._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-MapEntryMaintenanceService_._Automaton = _BuildAutomaton_16()
+MapEntryMaintenanceService_._Automaton = _BuildAutomaton_19()
 

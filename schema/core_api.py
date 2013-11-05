@@ -1,22 +1,22 @@
 # ./core_api.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:84e79441b554a4367822e7e49bbfb85b3f4be5f8
-# Generated 2013-04-18 16:41:20.526042 by PyXB version 1.2.2
+# Generated 2013-11-05 15:25:28.320804 by PyXB version 1.2.3
 # Namespace http://www.omg.org/spec/CTS2/1.1/Core [xmlns:core]
 
 import pyxb
 import pyxb.binding
 import pyxb.binding.saxer
-import StringIO
+import io
 import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:b2e57fe8-a870-11e2-a91a-c82a1438c957')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c74202c2-4660-11e3-9c81-c82a1438c957')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.2'
+_PyXBVersion = '1.2.3'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
@@ -31,8 +31,12 @@ Namespace.configureCategories(['typeBinding', 'elementBinding'])
 def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
     """Parse the given XML and use the document element to create a
     Python instance.
-    
-    @kw default_namespace The L{pyxb.Namespace} instance to use as the
+
+    @param xml_text An XML document.  This should be data (Python 2
+    str or Python 3 bytes), or a text (Python 2 unicode or Python 3
+    str) in the L{pyxb._InputEncoding} encoding.
+
+    @keyword default_namespace The L{pyxb.Namespace} instance to use as the
     default namespace where there is no default namespace in scope.
     If unspecified or C{None}, the namespace of the module containing
     this function will be used.
@@ -50,7 +54,10 @@ def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
         default_namespace = Namespace.fallbackNamespace()
     saxer = pyxb.binding.saxer.make_parser(fallback_namespace=default_namespace, location_base=location_base)
     handler = saxer.getContentHandler()
-    saxer.parse(StringIO.StringIO(xml_text))
+    xmld = xml_text
+    if isinstance(xmld, unicode):
+        xmld = xmld.encode(pyxb._InputEncoding)
+    saxer.parse(io.BytesIO(xmld))
     instance = handler.rootObject()
     return instance
 
@@ -84,6 +91,8 @@ from _nsgroup import SourceAndRoleReference # {http://www.omg.org/spec/CTS2/1.1/
 from _nsgroup import ValueSetDefinitionReference # {http://www.omg.org/spec/CTS2/1.1/Core}ValueSetDefinitionReference
 from _nsgroup import Filter # {http://www.omg.org/spec/CTS2/1.1/Core}Filter
 from _nsgroup import SortCriteria # {http://www.omg.org/spec/CTS2/1.1/Core}SortCriteria
+from _nsgroup import ComponentReference # {http://www.omg.org/spec/CTS2/1.1/Core}ComponentReference
+from _nsgroup import ComponentReferenceList # {http://www.omg.org/spec/CTS2/1.1/Core}ComponentReferenceList
 from _nsgroup import OntologyLanguageAndSyntax # {http://www.omg.org/spec/CTS2/1.1/Core}OntologyLanguageAndSyntax
 from _nsgroup import SourceAndNotation # {http://www.omg.org/spec/CTS2/1.1/Core}SourceAndNotation
 from _nsgroup import AnonymousStatement # {http://www.omg.org/spec/CTS2/1.1/Core}AnonymousStatement
@@ -100,10 +109,11 @@ from _nsgroup import ChangeCommitted # {http://www.omg.org/spec/CTS2/1.1/Core}Ch
 from _nsgroup import FinalizableState # {http://www.omg.org/spec/CTS2/1.1/Core}FinalizableState
 from _nsgroup import CompleteDirectory # {http://www.omg.org/spec/CTS2/1.1/Core}CompleteDirectory
 from _nsgroup import EntityReference # {http://www.omg.org/spec/CTS2/1.1/Core}EntityReference
+from _nsgroup import CodeSystemRole # {http://www.omg.org/spec/CTS2/1.1/Core}CodeSystemRole
 from _nsgroup import SetOperator # {http://www.omg.org/spec/CTS2/1.1/Core}SetOperator
+from _nsgroup import FilterComponent # {http://www.omg.org/spec/CTS2/1.1/Core}FilterComponent
 from _nsgroup import SortDirection # {http://www.omg.org/spec/CTS2/1.1/Core}SortDirection
 from _nsgroup import AssociationDirection # {http://www.omg.org/spec/CTS2/1.1/Core}AssociationDirection
-from _nsgroup import TargetReferenceType # {http://www.omg.org/spec/CTS2/1.1/Core}TargetReferenceType
 from _nsgroup import CodeSystemName # {http://www.omg.org/spec/CTS2/1.1/Core}CodeSystemName
 from _nsgroup import CodeSystemVersionName # {http://www.omg.org/spec/CTS2/1.1/Core}CodeSystemVersionName
 from _nsgroup import ConceptDomainName # {http://www.omg.org/spec/CTS2/1.1/Core}ConceptDomainName
@@ -125,7 +135,6 @@ from _nsgroup import Changeable # {http://www.omg.org/spec/CTS2/1.1/Core}Changea
 from _nsgroup import Finalizable # {http://www.omg.org/spec/CTS2/1.1/Core}Finalizable
 from _nsgroup import AnonymousEntityReference # {http://www.omg.org/spec/CTS2/1.1/Core}AnonymousEntityReference
 from _nsgroup import SortCriterion # {http://www.omg.org/spec/CTS2/1.1/Core}SortCriterion
-from _nsgroup import PropertyReference # {http://www.omg.org/spec/CTS2/1.1/Core}PropertyReference
 from _nsgroup import ChangeDescription # {http://www.omg.org/spec/CTS2/1.1/Core}ChangeDescription
 from _nsgroup import ChangeSetBase # {http://www.omg.org/spec/CTS2/1.1/Core}ChangeSetBase
 from _nsgroup import Directory # {http://www.omg.org/spec/CTS2/1.1/Core}Directory
@@ -147,7 +156,6 @@ from _nsgroup import DescriptionInCodeSystem # {http://www.omg.org/spec/CTS2/1.1
 from _nsgroup import NamedEntityReference # {http://www.omg.org/spec/CTS2/1.1/Core}NamedEntityReference
 from _nsgroup import URIAndEntityName # {http://www.omg.org/spec/CTS2/1.1/Core}URIAndEntityName
 from _nsgroup import NameAndMeaningReference # {http://www.omg.org/spec/CTS2/1.1/Core}NameAndMeaningReference
-from _nsgroup import FilterComponent # {http://www.omg.org/spec/CTS2/1.1/Core}FilterComponent
 from _nsgroup import Note # {http://www.omg.org/spec/CTS2/1.1/Core}Note
 from _nsgroup import ResourceDescription # {http://www.omg.org/spec/CTS2/1.1/Core}ResourceDescription
 from _nsgroup import Property # {http://www.omg.org/spec/CTS2/1.1/Core}Property

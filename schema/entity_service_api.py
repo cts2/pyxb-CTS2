@@ -1,22 +1,22 @@
 # ./entity_service_api.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:62803c15fc82f00c6ff1a1fa27f74b4104ea03fb
-# Generated 2013-04-18 16:41:20.527859 by PyXB version 1.2.2
+# Generated 2013-11-05 15:25:28.326969 by PyXB version 1.2.3
 # Namespace http://www.omg.org/spec/CTS2/1.1/EntityDescriptionServices
 
 import pyxb
 import pyxb.binding
 import pyxb.binding.saxer
-import StringIO
+import io
 import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:b2e57fe8-a870-11e2-a91a-c82a1438c957')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c74202c2-4660-11e3-9c81-c82a1438c957')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.2'
+_PyXBVersion = '1.2.3'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
@@ -35,8 +35,12 @@ _Namespace_coreservice.configureCategories(['typeBinding', 'elementBinding'])
 def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
     """Parse the given XML and use the document element to create a
     Python instance.
-    
-    @kw default_namespace The L{pyxb.Namespace} instance to use as the
+
+    @param xml_text An XML document.  This should be data (Python 2
+    str or Python 3 bytes), or a text (Python 2 unicode or Python 3
+    str) in the L{pyxb._InputEncoding} encoding.
+
+    @keyword default_namespace The L{pyxb.Namespace} instance to use as the
     default namespace where there is no default namespace in scope.
     If unspecified or C{None}, the namespace of the module containing
     this function will be used.
@@ -54,7 +58,10 @@ def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
         default_namespace = Namespace.fallbackNamespace()
     saxer = pyxb.binding.saxer.make_parser(fallback_namespace=default_namespace, location_base=location_base)
     handler = saxer.getContentHandler()
-    saxer.parse(StringIO.StringIO(xml_text))
+    xmld = xml_text
+    if isinstance(xmld, unicode):
+        xmld = xmld.encode(pyxb._InputEncoding)
+    saxer.parse(io.BytesIO(xmld))
     instance = handler.rootObject()
     return instance
 
@@ -128,6 +135,13 @@ class UpdateEntityDescriptionRequest_ (pyxb.binding.basis.complexTypeDefinition)
     
     updatedResourceTypes = property(__updatedResourceTypes.value, __updatedResourceTypes.set, None, None)
 
+    
+    # Element {http://www.omg.org/spec/CTS2/1.1/EntityDescriptionServices}updatedCodeSystemRole uses Python identifier updatedCodeSystemRole
+    __updatedCodeSystemRole = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'updatedCodeSystemRole'), 'updatedCodeSystemRole', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_UpdateEntityDescriptionRequest__httpwww_omg_orgspecCTS21_1EntityDescriptionServicesupdatedCodeSystemRole', False, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 80, 3), )
+
+    
+    updatedCodeSystemRole = property(__updatedCodeSystemRole.value, __updatedCodeSystemRole.set, None, None)
+
     _ElementMap.update({
         __updatedAlternateEntityIds.name() : __updatedAlternateEntityIds,
         __updatedDefinitions.name() : __updatedDefinitions,
@@ -135,7 +149,8 @@ class UpdateEntityDescriptionRequest_ (pyxb.binding.basis.complexTypeDefinition)
         __updatedComments.name() : __updatedComments,
         __updatedParents.name() : __updatedParents,
         __updatedProperties.name() : __updatedProperties,
-        __updatedResourceTypes.name() : __updatedResourceTypes
+        __updatedResourceTypes.name() : __updatedResourceTypes,
+        __updatedCodeSystemRole.name() : __updatedCodeSystemRole
     })
     _AttributeMap.update({
         
@@ -332,6 +347,33 @@ class CTD_ANON_6 (pyxb.binding.basis.complexTypeDefinition):
 
 
 
+# Complex type [anonymous] with content type ELEMENT_ONLY
+class CTD_ANON_7 (pyxb.binding.basis.complexTypeDefinition):
+    """Complex type [anonymous] with content type ELEMENT_ONLY"""
+    _TypeDefinition = None
+    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
+    _Abstract = False
+    _ExpandedName = None
+    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 81, 4)
+    _ElementMap = {}
+    _AttributeMap = {}
+    # Base type is pyxb.binding.datatypes.anyType
+    
+    # Element {http://www.omg.org/spec/CTS2/1.1/EntityDescriptionServices}codeSystemRole uses Python identifier codeSystemRole
+    __codeSystemRole = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'codeSystemRole'), 'codeSystemRole', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_CTD_ANON_7_httpwww_omg_orgspecCTS21_1EntityDescriptionServicescodeSystemRole', False, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 83, 6), )
+
+    
+    codeSystemRole = property(__codeSystemRole.value, __codeSystemRole.set, None, None)
+
+    _ElementMap.update({
+        __codeSystemRole.name() : __codeSystemRole
+    })
+    _AttributeMap.update({
+        
+    })
+
+
+
 # Complex type {http://www.omg.org/spec/CTS2/1.1/EntityDescriptionServices}EntityDescriptionHistoryService with content type ELEMENT_ONLY
 class EntityDescriptionHistoryService_ (_ImportedBinding_core_service_api.HistoryService_):
     """Complex type {http://www.omg.org/spec/CTS2/1.1/EntityDescriptionServices}EntityDescriptionHistoryService with content type ELEMENT_ONLY"""
@@ -421,7 +463,7 @@ class EntityDescriptionReadService_ (_ImportedBinding_core_service_api.BaseReadS
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'EntityDescriptionReadService')
-    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 84, 1)
+    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 91, 1)
     _ElementMap = _ImportedBinding_core_service_api.BaseReadService_._ElementMap.copy()
     _AttributeMap = _ImportedBinding_core_service_api.BaseReadService_._AttributeMap.copy()
     # Base type is _ImportedBinding_core_service_api.BaseReadService_
@@ -445,21 +487,21 @@ class EntityDescriptionReadService_ (_ImportedBinding_core_service_api.BaseReadS
     # Element knownNamespace ({http://www.omg.org/spec/CTS2/1.1/CoreService}knownNamespace) inherited from {http://www.omg.org/spec/CTS2/1.1/CoreService}BaseService
     
     # Element {http://www.omg.org/spec/CTS2/1.1/EntityDescriptionServices}knownCodeSystem uses Python identifier knownCodeSystem
-    __knownCodeSystem = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystem'), 'knownCodeSystem', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_EntityDescriptionReadService__httpwww_omg_orgspecCTS21_1EntityDescriptionServicesknownCodeSystem', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 88, 5), )
+    __knownCodeSystem = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystem'), 'knownCodeSystem', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_EntityDescriptionReadService__httpwww_omg_orgspecCTS21_1EntityDescriptionServicesknownCodeSystem', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 95, 5), )
 
     
     knownCodeSystem = property(__knownCodeSystem.value, __knownCodeSystem.set, None, None)
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/EntityDescriptionServices}knownCodeSystemVersion uses Python identifier knownCodeSystemVersion
-    __knownCodeSystemVersion = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystemVersion'), 'knownCodeSystemVersion', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_EntityDescriptionReadService__httpwww_omg_orgspecCTS21_1EntityDescriptionServicesknownCodeSystemVersion', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 89, 5), )
+    __knownCodeSystemVersion = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystemVersion'), 'knownCodeSystemVersion', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_EntityDescriptionReadService__httpwww_omg_orgspecCTS21_1EntityDescriptionServicesknownCodeSystemVersion', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 96, 5), )
 
     
     knownCodeSystemVersion = property(__knownCodeSystemVersion.value, __knownCodeSystemVersion.set, None, None)
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/EntityDescriptionServices}supportedVersionTag uses Python identifier supportedVersionTag
-    __supportedVersionTag = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'supportedVersionTag'), 'supportedVersionTag', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_EntityDescriptionReadService__httpwww_omg_orgspecCTS21_1EntityDescriptionServicessupportedVersionTag', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 90, 5), )
+    __supportedVersionTag = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'supportedVersionTag'), 'supportedVersionTag', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_EntityDescriptionReadService__httpwww_omg_orgspecCTS21_1EntityDescriptionServicessupportedVersionTag', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 97, 5), )
 
     
     supportedVersionTag = property(__supportedVersionTag.value, __supportedVersionTag.set, None, None)
@@ -482,7 +524,7 @@ class EntityDescriptionQueryService_ (_ImportedBinding_core_service_api.BaseQuer
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'EntityDescriptionQueryService')
-    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 97, 1)
+    _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 104, 1)
     _ElementMap = _ImportedBinding_core_service_api.BaseQueryService_._ElementMap.copy()
     _AttributeMap = _ImportedBinding_core_service_api.BaseQueryService_._AttributeMap.copy()
     # Base type is _ImportedBinding_core_service_api.BaseQueryService_
@@ -512,21 +554,21 @@ class EntityDescriptionQueryService_ (_ImportedBinding_core_service_api.BaseQuer
     # Element supportedModelAttribute ({http://www.omg.org/spec/CTS2/1.1/CoreService}supportedModelAttribute) inherited from {http://www.omg.org/spec/CTS2/1.1/CoreService}BaseQueryService
     
     # Element {http://www.omg.org/spec/CTS2/1.1/EntityDescriptionServices}knownCodeSystem uses Python identifier knownCodeSystem
-    __knownCodeSystem = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystem'), 'knownCodeSystem', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_EntityDescriptionQueryService__httpwww_omg_orgspecCTS21_1EntityDescriptionServicesknownCodeSystem', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 101, 5), )
+    __knownCodeSystem = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystem'), 'knownCodeSystem', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_EntityDescriptionQueryService__httpwww_omg_orgspecCTS21_1EntityDescriptionServicesknownCodeSystem', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 108, 5), )
 
     
     knownCodeSystem = property(__knownCodeSystem.value, __knownCodeSystem.set, None, None)
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/EntityDescriptionServices}knownCodeSystemVersion uses Python identifier knownCodeSystemVersion
-    __knownCodeSystemVersion = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystemVersion'), 'knownCodeSystemVersion', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_EntityDescriptionQueryService__httpwww_omg_orgspecCTS21_1EntityDescriptionServicesknownCodeSystemVersion', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 102, 5), )
+    __knownCodeSystemVersion = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystemVersion'), 'knownCodeSystemVersion', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_EntityDescriptionQueryService__httpwww_omg_orgspecCTS21_1EntityDescriptionServicesknownCodeSystemVersion', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 109, 5), )
 
     
     knownCodeSystemVersion = property(__knownCodeSystemVersion.value, __knownCodeSystemVersion.set, None, None)
 
     
     # Element {http://www.omg.org/spec/CTS2/1.1/EntityDescriptionServices}supportedVersionTag uses Python identifier supportedVersionTag
-    __supportedVersionTag = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'supportedVersionTag'), 'supportedVersionTag', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_EntityDescriptionQueryService__httpwww_omg_orgspecCTS21_1EntityDescriptionServicessupportedVersionTag', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 103, 5), )
+    __supportedVersionTag = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, u'supportedVersionTag'), 'supportedVersionTag', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_EntityDescriptionQueryService__httpwww_omg_orgspecCTS21_1EntityDescriptionServicessupportedVersionTag', True, pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 110, 5), )
 
     
     supportedVersionTag = property(__supportedVersionTag.value, __supportedVersionTag.set, None, None)
@@ -534,8 +576,8 @@ class EntityDescriptionQueryService_ (_ImportedBinding_core_service_api.BaseQuer
     
     # Attribute entities uses Python identifier entities
     __entities = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, u'entities'), 'entities', '__httpwww_omg_orgspecCTS21_1EntityDescriptionServices_EntityDescriptionQueryService__entities', _ImportedBinding__nsgroup.EntityDirectoryURI, required=True)
-    __entities._DeclarationLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 105, 4)
-    __entities._UseLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 105, 4)
+    __entities._DeclarationLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 112, 4)
+    __entities._UseLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 112, 4)
     
     entities = property(__entities.value, __entities.set, None, None)
 
@@ -559,10 +601,10 @@ Namespace.addCategoryObject('elementBinding', EntityDescriptionHistoryService.na
 EntityDescriptionMaintenanceService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'EntityDescriptionMaintenanceService'), EntityDescriptionMaintenanceService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 19, 1))
 Namespace.addCategoryObject('elementBinding', EntityDescriptionMaintenanceService.name().localName(), EntityDescriptionMaintenanceService)
 
-EntityDescriptionReadService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'EntityDescriptionReadService'), EntityDescriptionReadService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 83, 1))
+EntityDescriptionReadService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'EntityDescriptionReadService'), EntityDescriptionReadService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 90, 1))
 Namespace.addCategoryObject('elementBinding', EntityDescriptionReadService.name().localName(), EntityDescriptionReadService)
 
-EntityDescriptionQueryService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'EntityDescriptionQueryService'), EntityDescriptionQueryService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 96, 1))
+EntityDescriptionQueryService = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'EntityDescriptionQueryService'), EntityDescriptionQueryService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 103, 1))
 Namespace.addCategoryObject('elementBinding', EntityDescriptionQueryService.name().localName(), EntityDescriptionQueryService)
 
 
@@ -580,6 +622,8 @@ UpdateEntityDescriptionRequest_._AddElement(pyxb.binding.basis.element(pyxb.name
 UpdateEntityDescriptionRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedProperties'), CTD_ANON_5, scope=UpdateEntityDescriptionRequest_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 66, 3)))
 
 UpdateEntityDescriptionRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedResourceTypes'), CTD_ANON_6, scope=UpdateEntityDescriptionRequest_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 73, 3)))
+
+UpdateEntityDescriptionRequest_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'updatedCodeSystemRole'), CTD_ANON_7, scope=UpdateEntityDescriptionRequest_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 80, 3)))
 
 def _BuildAutomaton ():
     # Remove this helper function from the namespace after it is invoked
@@ -602,6 +646,8 @@ def _BuildAutomaton ():
     counters.add(cc_5)
     cc_6 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 73, 3))
     counters.add(cc_6)
+    cc_7 = fac.CounterCondition(min=0L, max=1, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 80, 3))
+    counters.add(cc_7)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
@@ -638,6 +684,11 @@ def _BuildAutomaton ():
     symbol = pyxb.binding.content.ElementUse(UpdateEntityDescriptionRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedResourceTypes')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 73, 3))
     st_6 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_6)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_7, False))
+    symbol = pyxb.binding.content.ElementUse(UpdateEntityDescriptionRequest_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'updatedCodeSystemRole')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 80, 3))
+    st_7 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_7)
     transitions = []
     transitions.append(fac.Transition(st_0, [
         fac.UpdateInstruction(cc_0, True) ]))
@@ -653,6 +704,8 @@ def _BuildAutomaton ():
         fac.UpdateInstruction(cc_0, False) ]))
     transitions.append(fac.Transition(st_6, [
         fac.UpdateInstruction(cc_0, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, False) ]))
     st_0._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_1, [
@@ -667,6 +720,8 @@ def _BuildAutomaton ():
         fac.UpdateInstruction(cc_1, False) ]))
     transitions.append(fac.Transition(st_6, [
         fac.UpdateInstruction(cc_1, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_1, False) ]))
     st_1._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_2, [
@@ -679,6 +734,8 @@ def _BuildAutomaton ():
         fac.UpdateInstruction(cc_2, False) ]))
     transitions.append(fac.Transition(st_6, [
         fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_2, False) ]))
     st_2._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_3, [
@@ -689,6 +746,8 @@ def _BuildAutomaton ():
         fac.UpdateInstruction(cc_3, False) ]))
     transitions.append(fac.Transition(st_6, [
         fac.UpdateInstruction(cc_3, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_3, False) ]))
     st_3._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_4, [
@@ -697,17 +756,27 @@ def _BuildAutomaton ():
         fac.UpdateInstruction(cc_4, False) ]))
     transitions.append(fac.Transition(st_6, [
         fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_4, False) ]))
     st_4._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_5, [
         fac.UpdateInstruction(cc_5, True) ]))
     transitions.append(fac.Transition(st_6, [
         fac.UpdateInstruction(cc_5, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_5, False) ]))
     st_5._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_6, [
         fac.UpdateInstruction(cc_6, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_6, False) ]))
     st_6._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_7, True) ]))
+    st_7._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=None)
 UpdateEntityDescriptionRequest_._Automaton = _BuildAutomaton()
 
@@ -897,10 +966,37 @@ CTD_ANON_6._Automaton = _BuildAutomaton_7()
 
 
 
+CTD_ANON_7._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'codeSystemRole'), _ImportedBinding__nsgroup.CodeSystemRole, scope=CTD_ANON_7, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 83, 6)))
+
 def _BuildAutomaton_8 ():
     # Remove this helper function from the namespace after it is invoked
     global _BuildAutomaton_8
     del _BuildAutomaton_8
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 83, 6))
+    counters.add(cc_0)
+    states = []
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON_7._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'codeSystemRole')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 83, 6))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=None)
+CTD_ANON_7._Automaton = _BuildAutomaton_8()
+
+
+
+
+def _BuildAutomaton_9 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_9
+    del _BuildAutomaton_9
     import pyxb.utils.fac as fac
 
     counters = set()
@@ -990,15 +1086,15 @@ def _BuildAutomaton_8 ():
     transitions = []
     st_9._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-EntityDescriptionHistoryService_._Automaton = _BuildAutomaton_8()
+EntityDescriptionHistoryService_._Automaton = _BuildAutomaton_9()
 
 
 
 
-def _BuildAutomaton_9 ():
+def _BuildAutomaton_10 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_9
-    del _BuildAutomaton_9
+    global _BuildAutomaton_10
+    del _BuildAutomaton_10
     import pyxb.utils.fac as fac
 
     counters = set()
@@ -1080,27 +1176,27 @@ def _BuildAutomaton_9 ():
          ]))
     st_8._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-EntityDescriptionMaintenanceService_._Automaton = _BuildAutomaton_9()
+EntityDescriptionMaintenanceService_._Automaton = _BuildAutomaton_10()
 
 
 
 
-EntityDescriptionReadService_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystem'), _ImportedBinding__nsgroup.CodeSystemReference, scope=EntityDescriptionReadService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 88, 5)))
+EntityDescriptionReadService_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystem'), _ImportedBinding__nsgroup.CodeSystemReference, scope=EntityDescriptionReadService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 95, 5)))
 
-EntityDescriptionReadService_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystemVersion'), _ImportedBinding__nsgroup.CodeSystemVersionReference, scope=EntityDescriptionReadService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 89, 5)))
+EntityDescriptionReadService_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystemVersion'), _ImportedBinding__nsgroup.CodeSystemVersionReference, scope=EntityDescriptionReadService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 96, 5)))
 
-EntityDescriptionReadService_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'supportedVersionTag'), _ImportedBinding__nsgroup.VersionTagReference, scope=EntityDescriptionReadService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 90, 5)))
+EntityDescriptionReadService_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'supportedVersionTag'), _ImportedBinding__nsgroup.VersionTagReference, scope=EntityDescriptionReadService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 97, 5)))
 
-def _BuildAutomaton_10 ():
+def _BuildAutomaton_11 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_10
-    del _BuildAutomaton_10
+    global _BuildAutomaton_11
+    del _BuildAutomaton_11
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 88, 5))
+    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 95, 5))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 89, 5))
+    cc_1 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 96, 5))
     counters.add(cc_1)
     states = []
     final_update = None
@@ -1140,15 +1236,15 @@ def _BuildAutomaton_10 ():
     st_8 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_8)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(EntityDescriptionReadService_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystem')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 88, 5))
+    symbol = pyxb.binding.content.ElementUse(EntityDescriptionReadService_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystem')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 95, 5))
     st_9 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_9)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(EntityDescriptionReadService_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystemVersion')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 89, 5))
+    symbol = pyxb.binding.content.ElementUse(EntityDescriptionReadService_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystemVersion')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 96, 5))
     st_10 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_10)
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(EntityDescriptionReadService_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'supportedVersionTag')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 90, 5))
+    symbol = pyxb.binding.content.ElementUse(EntityDescriptionReadService_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'supportedVersionTag')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 97, 5))
     st_11 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_11)
     transitions = []
@@ -1216,29 +1312,29 @@ def _BuildAutomaton_10 ():
          ]))
     st_11._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-EntityDescriptionReadService_._Automaton = _BuildAutomaton_10()
+EntityDescriptionReadService_._Automaton = _BuildAutomaton_11()
 
 
 
 
-EntityDescriptionQueryService_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystem'), _ImportedBinding__nsgroup.CodeSystemReference, scope=EntityDescriptionQueryService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 101, 5)))
+EntityDescriptionQueryService_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystem'), _ImportedBinding__nsgroup.CodeSystemReference, scope=EntityDescriptionQueryService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 108, 5)))
 
-EntityDescriptionQueryService_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystemVersion'), _ImportedBinding__nsgroup.CodeSystemVersionReference, scope=EntityDescriptionQueryService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 102, 5)))
+EntityDescriptionQueryService_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystemVersion'), _ImportedBinding__nsgroup.CodeSystemVersionReference, scope=EntityDescriptionQueryService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 109, 5)))
 
-EntityDescriptionQueryService_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'supportedVersionTag'), _ImportedBinding__nsgroup.VersionTagReference, scope=EntityDescriptionQueryService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 103, 5)))
+EntityDescriptionQueryService_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'supportedVersionTag'), _ImportedBinding__nsgroup.VersionTagReference, scope=EntityDescriptionQueryService_, location=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 110, 5)))
 
-def _BuildAutomaton_11 ():
+def _BuildAutomaton_12 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_11
-    del _BuildAutomaton_11
+    global _BuildAutomaton_12
+    del _BuildAutomaton_12
     import pyxb.utils.fac as fac
 
     counters = set()
     cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location(u'http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/CoreService.xsd', 749, 5))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 101, 5))
+    cc_1 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 108, 5))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 102, 5))
+    cc_2 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 109, 5))
     counters.add(cc_2)
     states = []
     final_update = None
@@ -1290,15 +1386,15 @@ def _BuildAutomaton_11 ():
     st_11 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_11)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(EntityDescriptionQueryService_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystem')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 101, 5))
+    symbol = pyxb.binding.content.ElementUse(EntityDescriptionQueryService_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystem')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 108, 5))
     st_12 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_12)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(EntityDescriptionQueryService_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystemVersion')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 102, 5))
+    symbol = pyxb.binding.content.ElementUse(EntityDescriptionQueryService_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'knownCodeSystemVersion')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 109, 5))
     st_13 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_13)
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(EntityDescriptionQueryService_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'supportedVersionTag')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 103, 5))
+    symbol = pyxb.binding.content.ElementUse(EntityDescriptionQueryService_._UseForTag(pyxb.namespace.ExpandedName(Namespace, u'supportedVersionTag')), pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/entity/EntityDescriptionServices.xsd', 110, 5))
     st_14 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_14)
     transitions = []
@@ -1386,5 +1482,5 @@ def _BuildAutomaton_11 ():
          ]))
     st_14._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-EntityDescriptionQueryService_._Automaton = _BuildAutomaton_11()
+EntityDescriptionQueryService_._Automaton = _BuildAutomaton_12()
 

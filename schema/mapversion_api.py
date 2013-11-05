@@ -1,22 +1,22 @@
 # ./mapversion_api.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:8502f1b7ba155b4f4b9e4e00bc85e9347e39e88e
-# Generated 2013-04-18 16:41:20.522908 by PyXB version 1.2.2
+# Generated 2013-11-05 15:25:28.319900 by PyXB version 1.2.3
 # Namespace http://www.omg.org/spec/CTS2/1.1/MapVersion [xmlns:mapversion]
 
 import pyxb
 import pyxb.binding
 import pyxb.binding.saxer
-import StringIO
+import io
 import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:b2e57fe8-a870-11e2-a91a-c82a1438c957')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c74202c2-4660-11e3-9c81-c82a1438c957')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.2'
+_PyXBVersion = '1.2.3'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
@@ -31,8 +31,12 @@ Namespace.configureCategories(['typeBinding', 'elementBinding'])
 def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
     """Parse the given XML and use the document element to create a
     Python instance.
-    
-    @kw default_namespace The L{pyxb.Namespace} instance to use as the
+
+    @param xml_text An XML document.  This should be data (Python 2
+    str or Python 3 bytes), or a text (Python 2 unicode or Python 3
+    str) in the L{pyxb._InputEncoding} encoding.
+
+    @keyword default_namespace The L{pyxb.Namespace} instance to use as the
     default namespace where there is no default namespace in scope.
     If unspecified or C{None}, the namespace of the module containing
     this function will be used.
@@ -50,7 +54,10 @@ def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
         default_namespace = Namespace.fallbackNamespace()
     saxer = pyxb.binding.saxer.make_parser(fallback_namespace=default_namespace, location_base=location_base)
     handler = saxer.getContentHandler()
-    saxer.parse(StringIO.StringIO(xml_text))
+    xmld = xml_text
+    if isinstance(xmld, unicode):
+        xmld = xmld.encode(pyxb._InputEncoding)
+    saxer.parse(io.BytesIO(xmld))
     instance = handler.rootObject()
     return instance
 
