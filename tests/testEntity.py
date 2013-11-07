@@ -49,6 +49,7 @@ class testEntity(unittest.TestCase):
         e.describingCodeSystemVersion.codeSystem = CodeSystemReference('SNOMED_CT')
         e.describingCodeSystemVersion.codeSystem.uri="http://snomed.info/sct/900000000000207008"
         e.designation.append(Designation('Appendicitis &< (Finding)'))
+        e.designation.append(Designation('This is <b>bold</b> statement', isPreferred=False, embeddedXML=True))
 
         et = URIAndEntityName()
         et.uri = 'http://www.w3.org/2002/07/owl#Class'
@@ -71,6 +72,9 @@ class testEntity(unittest.TestCase):
         </entity:describingCodeSystemVersion>
         <entity:designation designationRole="PREFERRED">
             <value>Appendicitis &amp;&lt; (Finding)</value>
+        </entity:designation>
+        <entity:designation designationRole="ALTERNATIVE">
+            <core:value>This is <core:b>bold</core:b> statement</core:value>
         </entity:designation>
         <entity:entityType uri="http://www.w3.org/2002/07/owl#Class">
             <core:name>Class</core:name>

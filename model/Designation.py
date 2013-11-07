@@ -31,6 +31,6 @@ from model.OpaqueData import OpaqueData
 from utils.prettyxml import cleanxml
 
 class Designation(entity_api.Designation):
-    def __init__(self, text, isPreferred=True):
-        entity_api.Designation.__init__(self, OpaqueData(cleanxml(text)).value_)
+    def __init__(self, text, isPreferred=True, embeddedXML=False):
+        entity_api.Designation.__init__(self, OpaqueData(text if embeddedXML else cleanxml(text)).value_)
         self.designationRole = entity_api.DesignationRole.PREFERRED if isPreferred else entity_api.DesignationRole.ALTERNATIVE
