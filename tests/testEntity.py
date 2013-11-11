@@ -49,7 +49,9 @@ class testEntity(unittest.TestCase):
         e.describingCodeSystemVersion.codeSystem = CodeSystemReference('SNOMED_CT')
         e.describingCodeSystemVersion.codeSystem.uri="http://snomed.info/sct/900000000000207008"
         e.designation.append(Designation('Appendicitis &< (Finding)'))
-        e.designation.append(Designation('This is <b>bold</b> statement', isPreferred=False, embeddedXML=True))
+        e.designation.append(Designation('This is <b>bold</b> statement', isPreferred=False, xmlns="http://www.w3.org/1999/xhtml"))
+        #e.designation.append(Designation('This is <b>bold</b> statement', isPreferred=False))
+
 
         et = URIAndEntityName()
         et.uri = 'http://www.w3.org/2002/07/owl#Class'
@@ -59,6 +61,7 @@ class testEntity(unittest.TestCase):
         c = EntityDescription()
         c.classDescription = e
 
+        #print prettyxml(c.toxml())
         self.assertTrue(diff(c.toxml(),"""<?xml version="1.0" encoding="UTF-8"?>
 <entity:EntityDescription xmlns:entity="http://www.omg.org/spec/CTS2/1.1/Entity" xmlns:core="http://www.omg.org/spec/CTS2/1.1/Core">
     <entity:classDescription about="http://snomed.info/id/74400008">
@@ -71,7 +74,7 @@ class testEntity(unittest.TestCase):
             <core:codeSystem uri="http://snomed.info/sct/900000000000207008">SNOMED_CT</core:codeSystem>
         </entity:describingCodeSystemVersion>
         <entity:designation designationRole="PREFERRED">
-            <value>Appendicitis &amp;&lt; (Finding)</value>
+            <value>Appendicitis &amp;amp;&amp;lt; (Finding)</value>
         </entity:designation>
         <entity:designation designationRole="ALTERNATIVE">
             <core:value>This is <core:b>bold</core:b> statement</core:value>

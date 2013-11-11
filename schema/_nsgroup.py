@@ -1,7 +1,7 @@
 # ./_nsgroup.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NGM:723761c7a0b8cc816150f931760f843d127c4862
-# Generated 2013-11-05 15:25:28.322421 by PyXB version 1.2.3
+# Generated 2013-11-09 17:39:50.321454 by PyXB version 1.2.3
 # Group contents:
 # Namespace http://www.omg.org/spec/CTS2/1.1/Association [xmlns:association]
 # Namespace http://www.omg.org/spec/CTS2/1.1/CodeSystem [xmlns:codesystem]
@@ -23,7 +23,7 @@ import pyxb.binding
 import pyxb.utils.utility
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c74202c2-4660-11e3-9c81-c82a1438c957')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:364c7059-4998-11e3-bd00-c82a1438c957')
 
 # Import bindings for schemas in group
 import pyxb.binding.datatypes
@@ -183,10 +183,10 @@ class MatchStrength (pyxb.binding.datatypes.double):
     _ExpandedName = pyxb.namespace.ExpandedName(_Namespace_core, u'MatchStrength')
     _XSDLocation = pyxb.utils.utility.Location('http://informatics.mayo.edu/cts2/spec/CTS2/1.1/core/Core.xsd', 65, 1)
     _Documentation = u'represents the relative strength of the result of a search. Represented as a real number $\\mathbb{R}$ such that $0.0 &lt; MatchStrength \\leq 1.0$.'
-MatchStrength._CF_maxInclusive = pyxb.binding.facets.CF_maxInclusive(value_datatype=MatchStrength, value=pyxb.binding.datatypes.double(1.0))
 MatchStrength._CF_minExclusive = pyxb.binding.facets.CF_minExclusive(value_datatype=pyxb.binding.datatypes.double, value=pyxb.binding.datatypes.anySimpleType(u'0.0'))
-MatchStrength._InitializeFacetMap(MatchStrength._CF_maxInclusive,
-   MatchStrength._CF_minExclusive)
+MatchStrength._CF_maxInclusive = pyxb.binding.facets.CF_maxInclusive(value_datatype=MatchStrength, value=pyxb.binding.datatypes.double(1.0))
+MatchStrength._InitializeFacetMap(MatchStrength._CF_minExclusive,
+   MatchStrength._CF_maxInclusive)
 _Namespace_core.addCategoryObject('typeBinding', u'MatchStrength', MatchStrength)
 
 # Atomic simple type: {http://www.omg.org/spec/CTS2/1.1/Core}NaturalNumber

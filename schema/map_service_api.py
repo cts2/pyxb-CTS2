@@ -1,7 +1,7 @@
 # ./map_service_api.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:69a0ad282f88fadf9a2196cd709890fef6b3d6fd
-# Generated 2013-11-05 15:25:28.328386 by PyXB version 1.2.3
+# Generated 2013-11-09 17:39:50.323584 by PyXB version 1.2.3
 # Namespace http://www.omg.org/spec/CTS2/1.1/MapServices
 
 import pyxb
@@ -13,7 +13,7 @@ import pyxb.utils.domutils
 import sys
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c74202c2-4660-11e3-9c81-c82a1438c957')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:364c7059-4998-11e3-bd00-c82a1438c957')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.3'
@@ -22,8 +22,8 @@ if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
 
 # Import bindings for namespaces imported into schema
-import core_service_api as _ImportedBinding_core_service_api
 import _nsgroup as _ImportedBinding__nsgroup
+import core_service_api as _ImportedBinding_core_service_api
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI(u'http://www.omg.org/spec/CTS2/1.1/MapServices', create_if_missing=True)

@@ -1,7 +1,7 @@
 # ./codesystemversion_api.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:42d2878c2afaf8973a0597e1de9a15c430cf3a2d
-# Generated 2013-11-05 15:25:28.318924 by PyXB version 1.2.3
+# Generated 2013-11-09 17:39:50.320646 by PyXB version 1.2.3
 # Namespace http://www.omg.org/spec/CTS2/1.1/CodeSystemVersion [xmlns:codesystemversion]
 
 import pyxb
@@ -13,7 +13,7 @@ import pyxb.utils.domutils
 import sys
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c74202c2-4660-11e3-9c81-c82a1438c957')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:364c7059-4998-11e3-bd00-c82a1438c957')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.3'

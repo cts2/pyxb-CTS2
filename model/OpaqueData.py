@@ -26,50 +26,74 @@
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
-import re
+
 from schema import core_api
+from schema.core_api import tsAnyType
 
+import pyxb
+from xml.sax import SAXParseException
+from utils.prettyxml import cleanxml
 
-# Understanding how to get information into a mixed namespace item is a bit of a challenge.
-# We've circumvented this by letting the CreateFromDocument build it for us
-
-xmlTemplate = """<?xml version="1.0"  encoding="UTF-8"?>
-<EntityExpression xmlns="http://www.omg.org/spec/CTS2/1.1/Core"
-    xmlns:core="http://www.omg.org/spec/CTS2/1.1/Core"
-    xmlns:xhtml="http://www.w3.org/1999/xhtml">
-    <ontologyLanguageAndSyntax>
-        <ontologyLanguage>lang</ontologyLanguage>
-        <ontologySyntax>syntax</ontologySyntax>
-    </ontologyLanguageAndSyntax>
-    <expression>
-        <core:value>%s</core:value>
-    </expression>
-</EntityExpression>
-"""
-
-xhtmlURI    = "http://www.w3.org/1999/xhtml"
 
 class OpaqueData(core_api.OpaqueData, object):
+    """ C{core_api.OpaqueData} wrapper.  OpaqueData may include:
+            1. value (tsAnyType) (req)
+            2. format (FormatReference) (opt)
+            3. language (LanguageReference) (opt)
+            4. schema (DocumentURI) (opt)
 
-    def __init__(self, value):
+    """
+
+    def __init__(self, value=None, valueNamespace=None):
         """ Constructor
 
         @param value: Value of the opaque data element. Can be any ascii text.
-        @type value: String
+        @type value: C{String}
 
+        @param valueNamespace: namespace URI for the value. If omitted, the value is
+            assumed to have no embedded XML
+        @type valueNamespace: C{uri}
         """
         core_api.OpaqueData.__init__(self)
-        xml = xmlTemplate % value
-        xml = xml.encode('utf-8')
-        self.value_ = core_api.CreateFromDocument(xml).expression.value_
+        self.value_ = tsAnyType(value)
+        if valueNamespace:
+            assert(False, "value namespace not implemented")
 
-
-    def setValue(self, val):
-        self.content().append(val)
 
     @property
     def text(self):
-        return reduce(lambda a,b: a + b if isinstance(b, basestring) else b.toxml(), self.value_.content(), '')
+        return reduce(lambda a,b: a + b if isinstance(b, basestring) else b.toxml(), self.value_.orderedContent(), '')
+
+
+class tsAnyType(core_api.tsAnyType, object):
+    """ C{core_api.tsAnyType} wrapper.  The schema is::
+
+            <xs:complexType mixed="true" name="tsAnyType">
+                <xs:sequence>
+                    <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##any" processContents="lax"/>
+                </xs:sequence>
+            </xs:complexType>
+
+        The value(s) can either be plain text, xml or a mixture thereof.
+
+    """
+    def __init__(self, value=None):
+        """ Construct a new instance.
+        @param value: text or xml value
+        """
+        core_api.tsAnyType.__init__(self)
+        if value:
+            self.append(value)
+
+    def append(self, value):
+        if '<' in value:
+            try:
+                for e in pyxb.utils.domutils.StringToDOM('<v>%s</v>' % value).firstChild.childNodes:
+                    core_api.tsAnyType.append(self, e)
+            except SAXParseException, e:
+                core_api.tsAnyType.append(self, cleanxml(value), _maybe_element=False)
+        else:
+            core_api.tsAnyType.append(self, value, _maybe_element=False)
 
 
 
