@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: latin-1 -*-
 # Copyright (c) 2013, Mayo Clinic
 # All rights reserved.
 #
@@ -57,7 +57,7 @@ class OpaqueData(core_api.OpaqueData, object):
         core_api.OpaqueData.__init__(self)
         self.value_ = tsAnyType(value)
         if valueNamespace:
-            assert(False, "value namespace not implemented")
+            assert False, "value namespace not implemented"
 
 
     @property
@@ -93,7 +93,7 @@ class tsAnyType(core_api.tsAnyType, object):
             except SAXParseException, e:
                 core_api.tsAnyType.append(self, cleanxml(value), _maybe_element=False)
         else:
-            core_api.tsAnyType.append(self, value, _maybe_element=False)
+            core_api.tsAnyType.append(self, unicode(value,errors='ignore'), _maybe_element=False)
 
 
 
