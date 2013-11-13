@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: latin-1 -*-
 # Copyright (c) 2013, Mayo Clinic
 # All rights reserved.
 #
@@ -35,13 +35,13 @@ class OpaqueDataTest(unittest.TestCase):
     def testBadCharacter(self):
         """ The text below contains a non-breaking space (0xA0) between 'the' and 'encounter'
         """
-        self.assertEqual(OpaqueData("Did theÂ encounterÂ team perform any procedures?").toxml(),
-                         u'''<?xml version="1.0" ?><core:OpaqueData xmlns:core="http://www.omg.org/spec/CTS2/1.1/Core"><core:value>Did theÂ encounterteam perform any procedures?</core:value></core:OpaqueData>''')
+        self.assertEqual(OpaqueData("Did the encounter team perform any procedures?").toxml(),
+                         u'''<?xml version="1.0" ?><core:OpaqueData xmlns:core="http://www.omg.org/spec/CTS2/1.1/Core"><core:value>Did the encounterteam perform any procedures?</core:value></core:OpaqueData>''')
 
 
     def testCubedSymbol(self):
-        self.assertEqual(OpaqueData('WBC count/mmÂ³'),
-                         u'''<?xml version="1.0" ?><core:OpaqueData xmlns:core="http://www.omg.org/spec/CTS2/1.1/Core"><core:value>WBC count/mmÂ³</core:value></core:OpaqueData>''')
+        self.assertEqual(OpaqueData('WBC count/mm³'),
+                         u'''<?xml version="1.0" ?><core:OpaqueData xmlns:core="http://www.omg.org/spec/CTS2/1.1/Core"><core:value>WBC count/mm³</core:value></core:OpaqueData>''')
 
 if __name__ == '__main__':
     unittest.main()

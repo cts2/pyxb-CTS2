@@ -1,4 +1,4 @@
-# -*- coding: latin-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (c) 2013, Mayo Clinic
 # All rights reserved.
 #
@@ -86,6 +86,7 @@ class tsAnyType(core_api.tsAnyType, object):
             self.append(value)
 
     def append(self, value):
+        value = value.decode('latin-1')
         if '<' in value:
             try:
                 for e in pyxb.utils.domutils.StringToDOM('<v>%s</v>' % value).firstChild.childNodes:
@@ -93,7 +94,7 @@ class tsAnyType(core_api.tsAnyType, object):
             except SAXParseException, e:
                 core_api.tsAnyType.append(self, cleanxml(value), _maybe_element=False)
         else:
-            core_api.tsAnyType.append(self, unicode(value,errors='ignore'), _maybe_element=False)
+            core_api.tsAnyType.append(self, value, _maybe_element=False)
 
 
 
